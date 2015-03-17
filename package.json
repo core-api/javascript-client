@@ -1,0 +1,23 @@
+{
+  "name": "coreapi",
+  "version": "0.0.0",
+  "description": "Javascript client library for Core API",
+  "main": "coreapi/coreapi.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:core-api/javascript-client.git"
+  },
+  "keywords": [
+    "API",
+    "REST",
+    "Hypermedia"
+  ],
+  "author": "Tom Christie <tom@tomchristie.com> (https://twitter.com/_tomchristie)",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/core-api/javascript-client/issues"
+  }
+}
