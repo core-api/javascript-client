@@ -19,5 +19,15 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/core-api/javascript-client/issues"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "devDependencies": {
+    "babel-core": "^5.2.17",
+    "babelify": "^6.0.2",
+    "browserify": "^10.1.2"
   }
 }
