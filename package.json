@@ -2,9 +2,10 @@
   "name": "coreapi",
   "version": "0.0.0",
   "description": "Javascript client library for Core API",
-  "main": "coreapi/coreapi.js",
+  "main": "dist/core-api.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel -s --modules common -d dist src"
   },
   "repository": {
     "type": "git",
@@ -20,14 +21,7 @@
   "bugs": {
     "url": "https://github.com/core-api/javascript-client/issues"
   },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
   "devDependencies": {
-    "babel-core": "^5.2.17",
-    "babelify": "^6.0.2",
-    "browserify": "^10.1.2"
+    "babel": "^5.3.2"
   }
 }
