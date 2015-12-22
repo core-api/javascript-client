@@ -22,6 +22,10 @@
     "url": "https://github.com/core-api/javascript-client/issues"
   },
   "devDependencies": {
-    "babel": "^5.3.2"
+    "babel": "^5.3.2",
+    "immutable": "^3.7.2"
+  },
+  "dependencies": {
+    "immutable": "^3.7.2"
   }
 }

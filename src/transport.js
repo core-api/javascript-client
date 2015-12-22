@@ -2,7 +2,7 @@ import * as Url from "url";
 import * as http from "http";
 import { selectCodec } from "./codecs";
 
-const methodMap = {
+const method_map = {
     'follow': 'GET',
     'action': 'POST',
     'create': 'POST',
@@ -14,12 +14,12 @@ class HTTPTransport {
     constructor() {
     }
     getHostname (url) {
-        let urlComponents = Url.parse(url);
-        return urlComponents.hostname;
+        let url_components = Url.parse(url);
+        return url_components.hostname;
     }
     getPort (url) {
-        let urlComponents = Url.parse(url);
-        return urlComponents.port;
+        let url_components = Url.parse(url);
+        return url_components.port;
     }
     getPath (method, url, parameters) {
         if (parameters && method === 'GET') {
@@ -30,15 +30,13 @@ class HTTPTransport {
         return url;
     }
     transition (url, t, parameters=false) {
-        const method = methodMap[t];
+        const method = method_map[t];
         console.log("butts", method);
         let p = new Promise((resolve, reject) => {
-            console.log("test");
             let hostname = this.getHostname(url);
             let port = this.getPort(url);
             let path = this.getPath(method, url);
             let data = null;
-            console.log("test");
             let request = http.request(
                 {
                     method: method,
@@ -68,7 +66,6 @@ class HTTPTransport {
             if (parameters && method !== 'GET') {
                 request.write(JSON.encode(parameters));
             }
-            console.log("boots");
 
             request.end();
         });
@@ -82,10 +79,10 @@ function getTransport(protocol) {
 }
 
 export function transition(url, t, parameters) {
-    let urlComponents = Url.parse(url);
+    let url_components = Url.parse(url);
 
-    let protocol = urlComponents.protocol;
-    let hostname = urlComponents.hostname;
+    let protocol = url_components.protocol;
+    let hostname = url_components.hostname;
 
     let transport = getTransport(protocol);
 
