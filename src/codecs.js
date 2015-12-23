@@ -1,4 +1,6 @@
 import { CoreDocument, CoreLink, CoreArray, CoreObject, CoreError, CoreField } from './document';
+import { List, Map } from 'immutable';
+import * as Url from "url";
 
 function escapeKey(key) {
     if (key.match(/_(type|meta)/)) {
@@ -63,40 +65,46 @@ function primitiveToNode(base_url, data) {
     // this walks the data, looking for subtrees with a _type key
     // and attempting to convert them to Link, Array, Document and Error.
     if (data instanceof Array) {
-        let items = data.map(x => primitiveToDocument(base_url, x));
-        if (!items.map(x => x.prototype).reduce(
-            (previous, current) => {
-                if (typeof previous === 'undefined') {
-                    /*
-                     * a single-element array is homogeneous; the prototype of 
-                     * the first element is sufficiently truthy
-                     */
-                    return current;
-                }
-                else {
-                    return previous === current;
-                }
-            },
-            {} // an empty array is homogeneous
-        )) {
+        let items = data.map(x => primitiveToNode(base_url, x));
+        if (
+            List(items).map(
+                x => x.constructor && x.constructor.name || typeof x
+            ).toSet().size > 1
+        ) {
             throw new Error('An Array must be homogeneous');
         }
-        return CoreArray(data);
+        return new CoreArray(items);
     }
     else if (data instanceof Object) {
         if (typeof data._type !== 'undefined') {
             // could be Link, Document or Error
+            if (data._type === 'document') {
+                let document_base = data._meta.url;
+                let converted_data = new Map(data).map((value, key) => {
+                    if (key[0] === '_') {
+                        return value;
+                    }
+                    return primitiveToNode(Url.resolve(base_url, document_base), value);
+                });
+                return new CoreDocument(converted_data, base_url);
+            }
+            else if (data._type === 'link') {
+                return new CoreLink(data.url || base_url, data.trans, data.fields)
+            }
+            else {
+                throw new Error("no errors yet");
+            }
         }
     }
-    else {}
-    data.keys().forEach(x => {});
-    return new CoreDocument(data, base_url);    
+    else {
+        return data;
+    }
 }
 
 class JSONCodec {
     load (body, base_url=undefined) {
         let data = JSON.parse(body);
-        let doc = primitiveToDocument(data, base_url);
+        let doc = primitiveToNode(base_url, data);
         if (!(doc instanceof CoreDocument || doc instanceof CoreError)) {
             throw new Error('Top level node must be a document or error message.');
         }

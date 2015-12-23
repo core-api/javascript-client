@@ -31,21 +31,28 @@ class HTTPTransport {
     }
     transition (url, t, parameters=false) {
         const method = method_map[t];
-        console.log("butts", method);
+        console.log("butts", method, url, parameters);
         let p = new Promise((resolve, reject) => {
             let hostname = this.getHostname(url);
             let port = this.getPort(url);
             let path = this.getPath(method, url);
             let data = null;
+            let outgoing = null;
+            var headers = {
+                'Accept': 'application/vnd.coreapi+json, application/json'
+            };
+            if (parameters && method !== 'GET') {
+                headers['Content-type'] = 'application/json';
+                outgoing = JSON.stringify(parameters);
+                headers['Content-length'] = outgoing.length;
+            }
             let request = http.request(
                 {
                     method: method,
                     hostname: hostname,
                     port: port,
                     path: path,
-                    headers: {
-                        'Accept': 'application/vnd.coreapi+json, application/json'   
-                    }
+                    headers: headers
                 },
                 response => {
                     let content_type = response.headers["content-type"];
@@ -54,22 +61,25 @@ class HTTPTransport {
                     let data = '';
                     response.on('data', chunk => { data += chunk; });
                     response.on('end', _ => {
-                        resolve(codec.load(data));
+                        if (t !== 'delete') {
+                            let loaded = codec.load(data, url);
+                            console.log(loaded);
+                            resolve(loaded);
+                        }
+                        resolve();
                     });
                 }
             );
-
-            console.log("done creating request");
             
             request.on('error', reject);
 
             if (parameters && method !== 'GET') {
-                request.write(JSON.encode(parameters));
+                request.write(outgoing);
             }
 
             request.end();
         });
-        p.then((x) => { console.log("fulfilled", x); });
+        // p.then((x) => { console.log("fulfilled", x); });
         return p;
     }
 }

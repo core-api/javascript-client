@@ -4,7 +4,7 @@
   "description": "Javascript client library for Core API",
   "main": "dist/core-api.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "babel-node test.js",
     "build": "babel -s --modules common -d dist src"
   },
   "repository": {

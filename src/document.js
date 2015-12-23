@@ -8,33 +8,38 @@ function followLink (document, link, parameters={}) {
     return transition(link.url, link.trans, parameters=parameters);
 }
 
-function toCore (value) {
-    if (value instanceof Array) {
-        return CoreArray.fromJS(value);
-    }
-    else if (value instanceof Object) {
-        return CoreObject.fromJS(value);
-    }
-    else {}
-}
-
 export class CoreDocument {
     constructor (data, base_url) {
-        super(data);
-        if (data._type !== 'document') {
+        if (data.get('_type') !== 'document') {
+            console.error("document not!", JSON.stringify(data));
             throw new Error('Cannot initialize a document from data of another type');
         }
         
-        this.title = data.title;
+        this.title = data.get('_meta').title;
         delete data.title;
 
-        this.base_url = base_url;
-        this._data = Immutable.Map(data);
+        this.base_url = data.get('_meta').url;
+        this.links = data.filter(x => x instanceof CoreLink);
+        this._data = data;
         return this;
+    }
+
+    action (action_name, parameters) {
+        let link = this.links.get(action_name);
+        if (!link) {
+            throw new Error(action_name + ' is not a valid action');
+        }
+        console.info("Executing action " + action_name + " (url " + link.url + ") with parameters " + JSON.stringify(parameters));
+        return link.transition(this, parameters);
     }
 }
 
-export class CoreArray {}
+export class CoreArray {
+    constructor(data) {
+        data.forEach((x, i) => { this[parseInt(i)] = x });
+        console.dir(this);
+    }
+}
 
 export class CoreError {}
 
@@ -59,5 +64,16 @@ export class CoreLink {
                 this.trans = trans;
             }
         }
+    }
+
+    inspect () {
+        return `{ ${this.trans}: ${this.url} }`
+    }
+
+    validate (parameters) {}
+
+    transition (document, parameters) {
+        this.validate(parameters);
+        return transition(this.url, this.trans, parameters);
     }
 }
