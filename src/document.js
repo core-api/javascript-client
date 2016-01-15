@@ -14,13 +14,17 @@ export class CoreDocument {
             console.error("document not!", JSON.stringify(data));
             throw new Error('Cannot initialize a document from data of another type');
         }
-        
+
         this.title = data.get('_meta').title;
         delete data.title;
 
         this.base_url = data.get('_meta').url;
         this.links = data.filter(x => x instanceof CoreLink);
-        this._data = data;
+        let fields = {};
+        data.filter(value => !(value instanceof CoreLink)).forEach((v, k) => {
+            fields[k] = v;
+        });
+        this.fields = Immutable.Map(fields);
         return this;
     }
 
@@ -37,7 +41,6 @@ export class CoreDocument {
 export class CoreArray {
     constructor(data) {
         data.forEach((x, i) => { this[parseInt(i)] = x });
-        console.dir(this);
     }
 }
 
@@ -46,7 +49,7 @@ export class CoreError {}
 export class CoreLink {
     constructor (url, trans, fields, func) {
         if (typeof url !== 'undefined') {
-            if (typeof url === 'string') {  
+            if (typeof url === 'string') {
                 this.url = url;
             }
             else {

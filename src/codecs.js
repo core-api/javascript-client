@@ -18,7 +18,24 @@ function unescapeKey(key) {
 
 function nodeToPrimitive(node, base_url) {
     if (node instanceof CoreDocument) {
+        function scopedNodeToPrimitive (x) {
+            return nodeToPrimitive(x, base_url)
+        }
 
+        let ret = node.fields.map(scopedNodeToPrimitive)
+            .merge(node.links.map(scopedNodeToPrimitive))
+            .toJS();
+
+        let meta = {};
+        let url = base_url || node.base_url;
+        if (typeof url !== 'undefined') {
+            meta.url = url;
+        }
+        meta.title = node.title;
+
+        ret._type = 'document';
+        ret._meta = meta;
+        return ret;
     }
     else if (node instanceof CoreLink) {
         let ret = {};
@@ -44,17 +61,17 @@ function nodeToPrimitive(node, base_url) {
                 }
             });
         }
-        return ret;            
+        return ret;
     }
     else if (node instanceof CoreObject) {
         let ret = {};
         node.each((key, value) => {
-            ret[escapeKey(key)] = documentToPrimitive(value, base_url);
+            ret[escapeKey(key)] = nodeToPrimitive(value, base_url);
         });
         return ret;
     }
     else if (node instanceof CoreArray) {
-        return Array.map(value => documentToPrimitive(value, base_url), node);
+        return Array.map(value => nodeToPrimitive(value, base_url), node);
     }
     else if (node instanceof CoreError) {
 
@@ -109,6 +126,10 @@ class JSONCodec {
             throw new Error('Top level node must be a document or error message.');
         }
         return doc;
+    }
+
+    dump (document) {
+
     }
 }
 

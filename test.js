@@ -1,7 +1,7 @@
 import { get } from "./src/core-api"
 
 
-get("http://notes.coreapi.org/")
+get("http://localhost:3000/")
     .then(x => {
         console.log("Root fetch success!");
         return x.action('add_note', {"description": "Hello"})
@@ -11,7 +11,7 @@ get("http://notes.coreapi.org/")
     })
     .then(doc => {
         console.dir("We created a note: ", doc);
-        return doc._data.get('notes')[0].action('delete');
+        return doc.fields.get('notes')[0].action('delete');
     })
     .then(doc => {
         console.dir("Note deleted successfully");
