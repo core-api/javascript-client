@@ -56,21 +56,19 @@ class HTTPTransport {
                 },
                 response => {
                     let content_type = response.headers["content-type"];
-                    console.log("response received", content_type);
                     let codec = selectCodec(content_type);
                     let data = '';
                     response.on('data', chunk => { data += chunk; });
                     response.on('end', _ => {
                         if (t !== 'delete') {
                             let loaded = codec.load(data, url);
-                            console.log(loaded);
                             resolve(loaded);
                         }
                         resolve();
                     });
                 }
             );
-            
+
             request.on('error', reject);
 
             if (parameters && method !== 'GET') {
