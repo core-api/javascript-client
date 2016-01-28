@@ -77,7 +77,6 @@ class HTTPTransport {
 
             request.end();
         });
-        // p.then((x) => { console.log("fulfilled", x); });
         return p;
     }
 }
