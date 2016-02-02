@@ -17,6 +17,9 @@
     "Hypermedia"
   ],
   "author": "Tom Christie <tom@tomchristie.com> (https://twitter.com/_tomchristie)",
+  "engines": {
+    "node": ">=0.12"
+  },
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/core-api/javascript-client/issues"
