@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Javascript client library for Core API",
   "main": "coreapi/coreapi.js",
+  "homepage": "http://www.coreapi.org/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
