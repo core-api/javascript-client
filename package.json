@@ -19,5 +19,9 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/core-api/javascript-client/issues"
+  },
+  "dependencies": {
+    "chalk": "=1.1.1",
+    "immutable": "=3.7.6"
   }
 }
