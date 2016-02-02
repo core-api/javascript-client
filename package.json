@@ -17,6 +17,16 @@
     "Hypermedia"
   ],
   "author": "Tom Christie <tom@tomchristie.com> (https://twitter.com/_tomchristie)",
+  "contributors": [
+    {
+      "name": "Tom Christie",
+      "url": "https://github.com/tomchristie/"
+    },
+    {
+      "name": "Jake 'Sid' Smith",
+      "url": "https://github.com/JakeSidSmith/"
+    }
+  ],
   "engines": {
     "node": ">=0.12"
   },
