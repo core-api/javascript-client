@@ -14,7 +14,7 @@
   };
 
   var formatContent = function (content) {
-    return content.map(function (key, value) {
+    return content.map(function (value, key) {
       return INDENT + key + ': ' + value;
     }).join(LINEBREAK);
   };
