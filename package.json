@@ -5,7 +5,8 @@
   "homepage": "http://www.coreapi.org/",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "eslint": "eslint src",
+    "test": "npm run eslint"
   },
   "repository": {
     "type": "git",
@@ -37,5 +38,8 @@
   "dependencies": {
     "chalk": "=1.1.1",
     "immutable": "=3.7.6"
+  },
+  "devDependencies": {
+    "eslint": "=1.10.3"
   }
 }
