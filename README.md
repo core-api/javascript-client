@@ -23,8 +23,8 @@ and storing the result of that operation
 
     .then(document => { store.set('notes', document.notes) });
 
-[core-api]: https://github.com/core-api/core-api/
-[build-status-image]: https://secure.travis-ci.org/core-api/javascript-client.svg?branch=master
-[travis]: http://travis-ci.org/core-api/javascript-client?branch=master
-[npm-version]: https://badge.fury.io/js/coreapi.svg
-[npm]: http://badge.fury.io/js/coreapi
+[core-api]: https://github.com/weargoggles/coreapi-promise/
+[build-status-image]: https://secure.travis-ci.org/weargoggles/coreapi-promise.svg?branch=master
+[travis]: http://travis-ci.org/weargoggles/coreapi-promise?branch=master
+[npm-version]: https://badge.fury.io/js/coreapi-promise.svg
+[npm]: http://badge.fury.io/js/coreapi-promise
