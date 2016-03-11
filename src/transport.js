@@ -7,7 +7,11 @@ const method_map = {
     'action': 'POST',
     'create': 'POST',
     'update': 'PUT',
-    'delete': 'DELETE'
+    'delete': 'DELETE',
+    'get': 'GET',
+    'post': 'POST',
+    'put': 'PUT',
+    'patch': 'PATCH'
 };
 
 class HTTPTransport {
@@ -22,20 +26,22 @@ class HTTPTransport {
         return url_components.port;
     }
     getPath (method, url, parameters) {
+        let url_components = Url.parse(url),
+            path = url_components.path;
         if (parameters && method === 'GET') {
             let paramArray = Object.keys(parameters).map(key => `${key}=${parameters[key]}`);
             let paramString = paramArray.reduce((acc, x) => `${acc}&${x}`);
-            return `${url}?${paramString}`;
+            return `${path}?${paramString}`;
         }
-        return url;
+        return path;
     }
     transition (url, t, parameters=false) {
         const method = method_map[t];
-        console.log("butts", method, url, parameters);
         let p = new Promise((resolve, reject) => {
             let hostname = this.getHostname(url);
             let port = this.getPort(url);
             let path = this.getPath(method, url);
+            console.log(hostname, port, path);
             let data = null;
             let outgoing = null;
             var headers = {
@@ -45,6 +51,7 @@ class HTTPTransport {
                 headers['Content-type'] = 'application/json';
                 outgoing = JSON.stringify(parameters);
                 headers['Content-length'] = outgoing.length;
+                console.log(outgoing, headers);
             }
             let request = http.request(
                 {
@@ -64,7 +71,7 @@ class HTTPTransport {
                             let loaded = codec.load(data, url);
                             resolve(loaded);
                         }
-                        resolve();
+                        resolve(null);
                     });
                 }
             );

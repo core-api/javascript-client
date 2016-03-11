@@ -1,3 +1,4 @@
+/* @flow */
 import { CoreDocument, CoreLink, CoreArray, CoreObject, CoreError, CoreField } from './document';
 import { List, Map } from 'immutable';
 import * as Url from "url";
@@ -49,7 +50,7 @@ function nodeToPrimitive(node, base_url) {
             ret.trans = node.trans;
         }
         if (node.fields instanceof Array) {
-            ret.fields = Array.map(item => {
+            ret.fields = List(node.fields).map(item => {
                 if (item.required) {
                     return {
                         name: item.name,
@@ -59,7 +60,7 @@ function nodeToPrimitive(node, base_url) {
                 else {
                     return item.name;
                 }
-            });
+            }).toJS();
         }
         return ret;
     }
@@ -71,7 +72,7 @@ function nodeToPrimitive(node, base_url) {
         return ret;
     }
     else if (node instanceof CoreArray) {
-        return Array.map(value => nodeToPrimitive(value, base_url), node);
+        return List(node).map(value => nodeToPrimitive(value, base_url)).toJS();
     }
     else if (node instanceof CoreError) {
 
@@ -82,9 +83,9 @@ function primitiveToNode(base_url, data) {
     // this walks the data, looking for subtrees with a _type key
     // and attempting to convert them to Link, Array, Document and Error.
     if (data instanceof Array) {
-        let items = data.map(x => primitiveToNode(base_url, x));
+        let items = List(data).map(x => primitiveToNode(base_url, x));
         if (
-            List(items).map(
+            items.map(
                 x => x.constructor && x.constructor.name || typeof x
             ).toSet().size > 1
         ) {
@@ -97,16 +98,18 @@ function primitiveToNode(base_url, data) {
             // could be Link, Document or Error
             if (data._type === 'document') {
                 let document_base = data._meta.url;
+                let resolved_url = Url.resolve(base_url, document_base);
+                console.log(base_url, resolved_url);
                 let converted_data = new Map(data).map((value, key) => {
                     if (key[0] === '_') {
                         return value;
                     }
-                    return primitiveToNode(Url.resolve(base_url, document_base), value);
+                    return primitiveToNode(resolved_url, value);
                 });
-                return new CoreDocument(converted_data, base_url);
+                return new CoreDocument(converted_data, resolved_url);
             }
             else if (data._type === 'link') {
-                return new CoreLink(data.url || base_url, data.trans, data.fields)
+                return new CoreLink(data.url || base_url, data.action, data.fields)
             }
             else {
                 throw new Error("no errors yet");
@@ -119,7 +122,8 @@ function primitiveToNode(base_url, data) {
 }
 
 class JSONCodec {
-    load (body, base_url=undefined) {
+    load (body, base_url: string) {
+        console.log("snjasdkj", base_url);
         let data = JSON.parse(body);
         let doc = primitiveToNode(base_url, data);
         if (!(doc instanceof CoreDocument || doc instanceof CoreError)) {
@@ -133,6 +137,6 @@ class JSONCodec {
     }
 }
 
-export function selectCodec (mimeType) {
+export function selectCodec (mimeType: string) : JSONCodec {
    return new JSONCodec();
 }
