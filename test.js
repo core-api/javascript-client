@@ -3,7 +3,7 @@ import assert from 'chai';
 
 describe('coreapi', function () {
     it("should work", function (done) {
-        get("http://localhost:3000/")
+        get("http://notes.coreapi.org/")
         .then(x => {
             console.log("Root fetch success!");
             return x.action('add_note', {"description": "Hello"})
