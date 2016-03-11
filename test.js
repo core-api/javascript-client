@@ -1,4 +1,4 @@
-import { get } from "./src/core-api"
+import get from "./src"
 import assert from 'chai';
 
 describe('coreapi', function () {

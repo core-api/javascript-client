@@ -1,4 +1,4 @@
-import "babel/polyfill";
+// import "babel/polyfill";
 import { transition } from "./transport";
 import {CoreArray, CoreDocument} from './document';
 
