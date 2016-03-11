@@ -1,3 +1,11 @@
 language: node_js
 node_js:
-  - "0.12"
+- '5'
+deploy:
+  provider: npm
+  email: pete@weargoggles.co.uk
+  api_key:
+    secure: L91ZaD1WfI5W8N2sfzcsxTc+YTgD1l+oQvyk3FaFy6Ex+uy+nn6PBTogFG59Wg+N1xo3T9MvaetESBGmZX7VEWisdiUDL+RVr5shZ+2cVR+Gr58b7VKCEf9rBl+Lj4jwJXsACvCSvFp0TWWOASVlr6rXYbqj+cJok9jXE6v6y20i8TVbc759qARBQ3UOx7Zlb26y8gUdwO41ZWgVtQ765fCdZBpRU3dhM4WO+ga/OEBhrYM3GDhanXHiqOaaiUuT5PKGoX614Opugce9Umvziinw6Y5Rxu3RpX0UW3DYTYCwxhDKEf/RDxyl1gqD9RZNH9N6kIAhQ/iAF8b2tbveCfT8s0Xx4kHQ8vAnDddhYtBGaHnioK7kK85WWPu6CIAyRUZ9gtnkdCD4vnowSOcaqAGXSDuG8I4x3KX9j0BCjMy+xs94iG3IKcUNySvmYtN/Swz8fQifA7O+tgH8zDuqofdMWDucQe/tAN8RZSYMMM7VgQICZEPo0Key6wP1kheuN6iw3p2x1zAGcSLXKIen4WN/XRd/31VrSsHLN2DHnmJkGYB7wb8KqEvPfXpGHHGcokP/5ZaKtbWYS5QAOY5JXdiZuOTG+ZF1xaTw02RGI2TSdyuKQ3M8q2/ty8uNcVMP9NnHLZq3HDh4IRwLggq98cvPuzuGDkxkbtYuD8cUyYs=
+  on:
+    tags: true
+    repo: weargoggles/coreapi-promise

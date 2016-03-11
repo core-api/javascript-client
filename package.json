@@ -1,23 +1,40 @@
 {
-  "name": "coreapi",
-  "version": "0.0.0",
+  "name": "coreapi-promise",
+  "version": "0.1.1",
   "description": "Javascript client library for Core API",
-  "main": "coreapi/coreapi.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel -s --modules common -d dist src",
+    "clean": "rm -rf dist/*",
+    "test": "mocha --compilers js:babel-core/register test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:core-api/javascript-client.git"
+    "url": "git@github.com:weargoggles/coreapi-promise.git"
   },
   "keywords": [
     "API",
     "REST",
     "Hypermedia"
   ],
-  "author": "Tom Christie <tom@tomchristie.com> (https://twitter.com/_tomchristie)",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "author": "Pete Wildsmith <pete@weargoggles.co.uk>",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/core-api/javascript-client/issues"
+    "url": "https://github.com/weargoggles/coreapi-promise/issues"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.6.4",
+    "babel-plugin-syntax-flow": "^6.5.0",
+    "babel-plugin-transform-flow-strip-types": "^6.7.0",
+    "babel-preset-es2015": "^6.5.2",
+    "chai": "^3.5.0",
+    "mocha": "^2.4.4"
+  },
+  "dependencies": {
+    "immutable": "^3.7.2"
   }
 }
