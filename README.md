@@ -7,9 +7,9 @@ Javascript client library for [Core API][core-api].
 
 ## Getting Started
 ### Installation
-    npm install coreapi
+    npm install coreapi-promise
 ### Working with the API
-The only name exported by `coreapi` is `get`, a function taking one argument, a URL, and returning a Promise.
+The default export from `coreapi-promise` is `get`, a function taking one argument, a URL, and returning a Promise which is resolved with a Document.
 
 You can retrieve the starting point of an API,
 
