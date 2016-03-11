@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel -s --modules common -d dist src",
     "clean": "rm -rf dist/*",
-    "test": "babel-node test.js"
+    "test": "mocha --compilers js:babel-core/register test.js"
   },
   "repository": {
     "type": "git",
