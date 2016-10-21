@@ -36,6 +36,11 @@ Javascript client library for [Core API][core-api].
 
 ##### Node
 
+Install it with NPM or add it to your package.json:
+
+    $ npm install coreapi
+
+
 ```javascript    
 import coreapi from 'coreapi';
 
