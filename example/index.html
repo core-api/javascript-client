@@ -15,9 +15,9 @@
         var coreapi = window.coreapi;
 
         coreapi()
-            .then(function (response) {
+            .then(function (statusText) {
                 var statusElement = document.getElementById("statusText");
-                statusElement.innerText = response.statusText;
+                statusElement.innerText = statusText;
             })
             .catch(function (error) {
                 console.log("ERROR: ", error);

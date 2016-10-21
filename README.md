@@ -16,6 +16,33 @@ Javascript client library for [Core API][core-api].
 
 ### Usage
 
-    import coreapi from 'coreapi'; // ES6
-    const coreapi = require('coreapi'); // ES5
+##### Browser
+  
+```html
+<script type="text/javascript">
+    var coreapi = window.coreapi;
 
+    coreapi()
+        .then(function (statusText) {
+            var statusElement = document.getElementById("statusText");
+            statusElement.innerText = statusText;
+        })
+        .catch(function (error) {
+            console.log("ERROR: ", error);
+        });
+</script>
+```
+
+##### Node
+
+```javascript    
+import coreapi from 'coreapi';
+
+coreapi()
+  .then((statusText) => {
+    console.log("Status: ", statusText);
+  })
+  .catch((error) => {
+    console.log("Error: ", error);
+  });
+```
