@@ -1,13 +1,13 @@
 const coreapi = require('../lib/index');
-const expect = require('expect.js');
+const expect = require('expect');
 
 const client = coreapi.client();
 
 client.get("http://httpbin.org/")
   .then((statusText) => {
-    expect(statusText).to.equal("OK");
+    expect(statusText).toEqual("OK");
     console.log('Passed ✔︎');
   })
   .catch((error) => {
-    expect().fail();
+    expect(error).toNotExist();
   });
