@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Example</title>
+</head>
+
+<body>
+    <h1>Hello!</h1>
+    <h3 id="statusText">Status (waiting)</h3>
+
+    <script src="../dist/index.js"></script>
+
+    <script type="text/javascript">
+        var coreapi = window.coreapi;
+
+        coreapi()
+            .then(function (response) {
+                var statusElement = document.getElementById("statusText");
+                statusElement.innerText = response.statusText;
+            })
+            .catch(function (error) {
+                console.log("ERROR: ", error);
+            });
+    </script>
+</body>
+
+</html>

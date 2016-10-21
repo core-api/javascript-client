@@ -12,3 +12,10 @@ Javascript client library for [Core API][core-api].
 [travis]: http://travis-ci.org/core-api/javascript-client?branch=master
 [npm-version]: https://badge.fury.io/js/coreapi.svg
 [npm]: http://badge.fury.io/js/coreapi
+
+
+### Usage
+
+    import coreapi from 'coreapi'; // ES6
+    const coreapi = require('coreapi'); // ES5
+

@@ -4,6 +4,8 @@
   "description": "Javascript client library for Core API",
   "main": "coreapi/coreapi.js",
   "scripts": {
+    "build": "browserify -d -t babelify coreapi/coreapi.js -o dist/index.js",
+    "watch": "watchify -t babelify coreapi/coreapi.js -o dist/index.js -v",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +21,11 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/core-api/javascript-client/issues"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "watchify": "^3.7.0"
   }
 }
