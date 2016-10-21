@@ -1,7 +1,7 @@
-const coreapi = require('../coreapi/coreapi');
+const coreapi = require('../lib/index');
 const expect = require('expect.js');
 
-const client = coreapi.client({foo: "bar"});
+const client = coreapi.client();
 
 client.get("http://httpbin.org/")
   .then((statusText) => {

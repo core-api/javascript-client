@@ -13,7 +13,7 @@
 
     <script type="text/javascript">
         var coreapi = window.coreapi;
-        var client = coreapi.client({foo: "bar"});
+        var client = coreapi.client();
 
         client.get("http://httpbin.org/")
             .then(function (statusText) {

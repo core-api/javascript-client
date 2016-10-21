@@ -2,10 +2,10 @@
   "name": "coreapi",
   "version": "0.0.0",
   "description": "Javascript client library for Core API",
-  "main": "coreapi/coreapi.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "browserify -d -t babelify coreapi/coreapi.js -o dist/index.js",
-    "watch": "watchify -t babelify coreapi/coreapi.js -o dist/index.js -v",
+    "build": "browserify -d -t babelify lib/index.js -o dist/index.js",
+    "watch": "watchify -t babelify lib/index.js -o dist/index.js -v",
     "test": "node tests/basic.js"
   },
   "repository": {
