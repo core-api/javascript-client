@@ -21,8 +21,9 @@ Javascript client library for [Core API][core-api].
 ```html
 <script type="text/javascript">
     var coreapi = window.coreapi;
+    var client = coreapi.client({foo: "bar"});
 
-    coreapi()
+    client.get("http://httpbin.org/")
         .then(function (statusText) {
             var statusElement = document.getElementById("statusText");
             statusElement.innerText = statusText;
@@ -38,7 +39,9 @@ Javascript client library for [Core API][core-api].
 ```javascript    
 import coreapi from 'coreapi';
 
-coreapi()
+const client = coreapi.client({foo: "bar"});
+
+client.get("http://httpbin.org/")
   .then((statusText) => {
     console.log("Status: ", statusText);
   })
