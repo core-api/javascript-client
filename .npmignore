@@ -1,0 +1,5 @@
+.babelrc
+.travis.yml
+example
+node_modules
+tests
