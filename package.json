@@ -4,8 +4,8 @@
   "description": "Javascript client library for Core API",
   "main": "lib/index.js",
   "scripts": {
-    "build": "browserify -d -t babelify lib/index.js -o dist/index.js",
-    "watch": "watchify -t babelify lib/index.js -o dist/index.js -v",
+    "build": "browserify --standalone coreapi -d -t babelify lib/index.js -o dist/coreapi.js",
+    "watch": "watchify --standalone coreapi -t babelify lib/index.js -o dist/coreapi.js -v",
     "test": "node tests/basic.js"
   },
   "repository": {
