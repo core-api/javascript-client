@@ -26,12 +26,12 @@ The core js library is available on the unpkg cdn. Once loaded the library will 
 
 <script type="text/javascript">
     var coreapi = window.coreapi;
-    var client = coreapi.client();
+    var client = new coreapi.Client();
 
     client.get("http://httpbin.org/")
-      .then(function (response) {
+      .then(function (data) {
         var responseElement = document.getElementById("response");
-        responseElement.innerText = response;
+        responseElement.innerText = data;
       })
       .catch(function (error) {
         console.log("ERROR: ", error);
@@ -49,13 +49,20 @@ Install it with NPM or add it to your package.json:
 ```javascript    
 import coreapi from 'coreapi';
 
-const client = coreapi.client();
+const client = new coreapi.Client()
 
 client.get("http://httpbin.org/")
-  .then((statusText) => {
-    console.log("Status: ", statusText);
+  .then((data) => {
+    console.log("Status: ", data);
   })
   .catch((error) => {
     console.log("Error: ", error);
   });
 ```
+
+
+### Tests
+
+To run the tests (linting & unit tests):
+
+    npm test
