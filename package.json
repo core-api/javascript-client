@@ -24,6 +24,9 @@
   "bugs": {
     "url": "https://github.com/core-api/javascript-client/issues"
   },
+  "standard": {
+    "globals": [ "describe", "it" ]
+  },
   "jest": {
     "testRegex": "/tests/.*\\.(ts|tsx|js)$"
   },
