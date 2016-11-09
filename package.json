@@ -7,7 +7,7 @@
     "build": "mkdir -p dist && browserify --standalone coreapi -d -t babelify lib/index.js -o dist/coreapi.js",
     "watch": "watchify --standalone coreapi -t babelify lib/index.js -o dist/coreapi.js -v",
     "prepublish": "npm run build",
-    "test": "node tests/basic.js"
+    "test": "standard && node tests/basic.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,8 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "expect": "^1.20.2",
+    "standard": "^8.5.0",
+    "url-parse": "^1.1.7",
     "watchify": "^3.7.0"
   }
 }
