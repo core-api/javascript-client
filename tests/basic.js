@@ -1,7 +1,7 @@
 const expect = require('expect');
 const coreapi = require('../lib/index');
 
-const client = coreapi.client();
+const client = new coreapi.Client();
 
 const textUrl = 'http://www.mocky.io/v2/582321ea1000008610ccfea6';
 const jsonUrl = 'http://www.mocky.io/v2/582321ba1000006310ccfea5';
