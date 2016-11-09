@@ -29,5 +29,5 @@ client.get(jsonUrl)
 expect(client.decoders[0].decode("Hello").text).toEqual("Hello");
 console.log('Decoders: Passed ✔︎');
 
-expect(client.decoders[0].decode("Hello")).toEqual(coreapi.document("Hello"));
+expect(client.decoders[0].decode("Hello")).toEqual(new coreapi.Document("Hello"));
 console.log('Document: Passed ✔︎');
