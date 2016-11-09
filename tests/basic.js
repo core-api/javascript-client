@@ -3,19 +3,22 @@ const coreapi = require('../lib/index');
 
 const client = coreapi.client();
 
-client.get("http://httpbin.org/")
-  .then((document) => {
-    expect(document.text).toEqual("OK");
-    console.log('Get: Passed ✔︎');
+const textUrl = 'http://www.mocky.io/v2/58230ec21000002f0fccfe7c';
+const jsonUrl = 'http://www.mocky.io/v2/582310281000005d0fccfe7e';
+
+client.get(textUrl)
+  .then((data) => {
+    expect(data).toEqual('<h1>Hello World!</h1>');
+    console.log('Get (Text Url): Passed ✔︎');
   })
   .catch((error) => {
     expect(error).toNotExist();
   });
 
-client.transports[0].action("http://httpbin.org/", client.decoders)
-  .then((document) => {
-    expect(document.text).toEqual("OK");
-    console.log('Transport: Passed ✔︎');
+client.get(jsonUrl)
+  .then((data) => {
+    expect(data).toEqual({"text": "hello"});
+    console.log('Get (JSON Url): Passed ✔︎');
   })
   .catch((error) => {
     expect(error).toNotExist();
