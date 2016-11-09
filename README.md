@@ -17,8 +17,13 @@ Javascript client library for [Core API][core-api].
 ### Usage
 
 ##### Browser
-  
+
+The core js library is available on the unpkg cdn. Once loaded the library will be available on `window.coreapi`.
+
 ```html
+
+<script src="https://unpkg.com/coreapi@latest/dist/coreapi.js"></script>
+
 <script type="text/javascript">
     var coreapi = window.coreapi;
     var client = coreapi.client();
