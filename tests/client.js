@@ -40,6 +40,5 @@ describe('Test the Client', function () {
     }
 
     expect(doAction).toThrow()
-    // expect(doAction.bind()).toThrow(new Error('Not implemented yet.'))
   })
 })
