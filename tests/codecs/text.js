@@ -1,4 +1,3 @@
-const expect = require('expect')
 const codecs = require('../../lib/codecs')
 
 const codec = new codecs.TextCodec()

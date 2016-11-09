@@ -1,6 +1,4 @@
-const expect = require('expect')
 const coreapi = require('../lib/index')
-
 const client = new coreapi.Client()
 
 describe('Test the Client', function () {

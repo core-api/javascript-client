@@ -1,4 +1,3 @@
-const expect = require('expect')
 const codecs = require('../../lib/codecs')
 const document = require('../../lib/document')
 
