@@ -12,7 +12,7 @@ client.get("http://httpbin.org/")
     expect(error).toNotExist();
   });
 
-client.transport.action("http://httpbin.org/", client.decoder)
+client.transports[0].action("http://httpbin.org/", client.decoders)
   .then((document) => {
     expect(document.text).toEqual("OK");
     console.log('Transport: Passed ✔︎');
@@ -21,8 +21,8 @@ client.transport.action("http://httpbin.org/", client.decoder)
     expect(error).toNotExist();
   });
 
-expect(client.decoder.decode("Hello").text).toEqual("Hello");
-console.log('Decoder: Passed ✔︎');
+expect(client.decoders[0].decode("Hello").text).toEqual("Hello");
+console.log('Decoders: Passed ✔︎');
 
-expect(client.decoder.decode("Hello")).toEqual(coreapi.document("Hello"));
+expect(client.decoders[0].decode("Hello")).toEqual(coreapi.document("Hello"));
 console.log('Document: Passed ✔︎');
