@@ -23,8 +23,10 @@
   "bugs": {
     "url": "https://github.com/core-api/javascript-client/issues"
   },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1"
+  },
   "devDependencies": {
-    "axios": "^0.15.2",
     "babel-preset-es2015": "^6.16.0",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",

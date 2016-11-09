@@ -8,6 +8,7 @@ const jsonUrl = 'http://www.mocky.io/v2/582310281000005d0fccfe7e';
 
 client.get(textUrl)
   .then((data) => {
+    expect(typeof data).toEqual('string');
     expect(data).toEqual('<h1>Hello World!</h1>');
     console.log('Get (Text Url): Passed ✔︎');
   })
@@ -17,6 +18,7 @@ client.get(textUrl)
 
 client.get(jsonUrl)
   .then((data) => {
+    expect(typeof data).toEqual('object');
     expect(data).toEqual({"text": "hello"});
     console.log('Get (JSON Url): Passed ✔︎');
   })
