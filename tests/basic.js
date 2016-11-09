@@ -3,8 +3,8 @@ const coreapi = require('../lib/index');
 
 const client = coreapi.client();
 
-const textUrl = 'http://www.mocky.io/v2/58230ec21000002f0fccfe7c';
-const jsonUrl = 'http://www.mocky.io/v2/582310281000005d0fccfe7e';
+const textUrl = 'http://www.mocky.io/v2/582321ea1000008610ccfea6';
+const jsonUrl = 'http://www.mocky.io/v2/582321ba1000006310ccfea5';
 
 client.get(textUrl)
   .then((data) => {
