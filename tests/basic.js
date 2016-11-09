@@ -1,11 +1,11 @@
-const coreapi = require('../lib/index');
 const expect = require('expect');
+const coreapi = require('../lib/index');
 
 const client = coreapi.client();
 
 client.get("http://httpbin.org/")
-  .then((statusText) => {
-    expect(statusText).toEqual("OK");
+  .then((document) => {
+    expect(document.text).toEqual("OK");
     console.log('Get: Passed ✔︎');
   })
   .catch((error) => {
@@ -13,13 +13,16 @@ client.get("http://httpbin.org/")
   });
 
 client.transport.action("http://httpbin.org/", client.decoder)
-  .then((statusText) => {
-    expect(statusText).toEqual("OK");
+  .then((document) => {
+    expect(document.text).toEqual("OK");
     console.log('Transport: Passed ✔︎');
   })
   .catch((error) => {
     expect(error).toNotExist();
   });
 
-expect(client.decoder.decode("Hello")).toEqual("Hello");
+expect(client.decoder.decode("Hello").text).toEqual("Hello");
 console.log('Decoder: Passed ✔︎');
+
+expect(client.decoder.decode("Hello")).toEqual(coreapi.document("Hello"));
+console.log('Document: Passed ✔︎');
