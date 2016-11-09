@@ -8,7 +8,10 @@ npm-debug.log*
 coverage
 
 # Dependency directories
-node_modules
+/node_modules/
+
+# Build directory
+/dist/
 
 # Output of 'npm pack'
 *.tgz
