@@ -7,7 +7,7 @@
 
 <body>
     <h1>Hello!</h1>
-    <h3 id="statusText">Status (waiting)</h3>
+    <h3 id="response">Status (waiting)</h3>
 
     <script src="../dist/coreapi.js"></script>
 
@@ -15,10 +15,19 @@
         var coreapi = window.coreapi;
         var client = coreapi.client();
 
-        client.get("http://httpbin.org/")
-            .then(function (statusText) {
-                var statusElement = document.getElementById("statusText");
-                statusElement.innerText = statusText;
+        // Examples
+        // Text: http://www.mocky.io/v2/582321ea1000008610ccfea6
+        // JSON: http://www.mocky.io/v2/582321ba1000006310ccfea5
+
+        client.get("http://www.mocky.io/v2/582321ea1000008610ccfea6")
+            .then(function (data) {
+                var responseElement = document.getElementById("response");
+
+                if (typeof data === 'string') {
+                    responseElement.innerText = 'Text: ' + data;
+                } else if (typeof data === 'object') {
+                    responseElement.innerText = 'JSON: ' + JSON.stringify(data);
+                }
             })
             .catch(function (error) {
                 console.log("ERROR: ", error);

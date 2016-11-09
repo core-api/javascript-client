@@ -29,13 +29,13 @@ The core js library is available on the unpkg cdn. Once loaded the library will 
     var client = coreapi.client();
 
     client.get("http://httpbin.org/")
-        .then(function (statusText) {
-            var statusElement = document.getElementById("statusText");
-            statusElement.innerText = statusText;
-        })
-        .catch(function (error) {
-            console.log("ERROR: ", error);
-        });
+      .then(function (response) {
+        var responseElement = document.getElementById("response");
+        responseElement.innerText = response;
+      })
+      .catch(function (error) {
+        console.log("ERROR: ", error);
+      });
 </script>
 ```
 
