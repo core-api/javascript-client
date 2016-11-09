@@ -7,7 +7,8 @@
     "build": "mkdir -p dist && browserify --standalone coreapi -d -t babelify lib/index.js -o dist/coreapi.js",
     "watch": "watchify --standalone coreapi -t babelify lib/index.js -o dist/coreapi.js -v",
     "prepublish": "npm run build",
-    "test": "standard && node tests/basic.js"
+    "jest": "jest",
+    "test": "standard && npm run jest"
   },
   "repository": {
     "type": "git",
@@ -23,14 +24,21 @@
   "bugs": {
     "url": "https://github.com/core-api/javascript-client/issues"
   },
+  "standard": {
+    "globals": [ "describe", "it", "expect" ]
+  },
+  "jest": {
+    "testRegex": "/tests/.*\\.(ts|tsx|js)$"
+  },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {
+    "babel-jest": "^17.0.0",
     "babel-preset-es2015": "^6.16.0",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
-    "expect": "^1.20.2",
+    "jest": "^17.0.0",
     "standard": "^8.5.0",
     "url-parse": "^1.1.7",
     "watchify": "^3.7.0"
