@@ -66,3 +66,7 @@ client.get("http://httpbin.org/")
 To run the tests (linting & unit tests):
 
     npm test
+
+To generate a coverage report:
+
+    npm run jest -- --coverage
