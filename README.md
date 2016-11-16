@@ -47,7 +47,7 @@ Install it with NPM or add it to your package.json:
 
 
 ```javascript    
-import coreapi from 'coreapi';
+const coreapi = require('coreapi');
 
 const client = new coreapi.Client()
 
