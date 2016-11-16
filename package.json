@@ -1,6 +1,6 @@
 {
   "name": "coreapi",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Javascript client library for Core API",
   "main": "lib/index.js",
   "scripts": {
@@ -28,10 +28,15 @@
     "globals": [ "describe", "it", "expect" ]
   },
   "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/tests/__helpers__/"
+    ],
     "testRegex": "/tests/.*\\.(ts|tsx|js)$"
   },
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1"
+    "isomorphic-fetch": "^2.2.1",
+    "url-parse": "^1.1.7"
   },
   "devDependencies": {
     "babel-jest": "^17.0.0",
@@ -40,7 +45,6 @@
     "browserify": "^13.1.0",
     "jest": "^17.0.0",
     "standard": "^8.5.0",
-    "url-parse": "^1.1.7",
     "watchify": "^3.7.0"
   }
 }
