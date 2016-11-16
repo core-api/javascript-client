@@ -1,14 +1,18 @@
 const coreapi = require('../lib/index')
-const client = new coreapi.Client()
+const transportsModule = require('../lib/transports')
+const testUtils = require('./__helpers__/utils')
 
 describe('Test the Client', function () {
   it('should get the content of page (text/html)', function () {
-    const url = 'http://www.mocky.io/v2/582321ea1000008610ccfea6'
+    const fetch = testUtils.mockedFetch('Hello, world', 'text/html')
+    const transport = new transportsModule.HTTPTransport(fetch)
+    const client = new coreapi.Client(null, [transport])
+    const url = 'http://example.com'
 
     client.get(url)
       .then((data) => {
         expect(typeof data).toEqual('string')
-        expect(data).toEqual('<h1>Hello World!</h1>')
+        expect(data).toEqual('Hello, world')
       })
       .catch((error) => {
         expect(error).toNotExist()
@@ -16,7 +20,10 @@ describe('Test the Client', function () {
   })
 
   it('should get the content of page (application/json)', function () {
-    const url = 'http://www.mocky.io/v2/582321ba1000006310ccfea5'
+    const fetch = testUtils.mockedFetch('{"text": "hello"}', 'application/json')
+    const transport = new transportsModule.HTTPTransport(fetch)
+    const client = new coreapi.Client(null, [transport])
+    const url = 'http://example.com'
 
     client.get(url)
       .then((data) => {
@@ -28,15 +35,19 @@ describe('Test the Client', function () {
       })
   })
 
-  it('should throw an error when trying to access a client\'s action - not implemented', function () {
-    const document = new coreapi.Document('Hello World')
-    const index = 0
-    const params = {}
+  it('action should get the content of page (application/json)', function () {
+    const fetch = testUtils.mockedFetch('{"text": "hello"}', 'application/json')
+    const transport = new transportsModule.HTTPTransport(fetch)
+    const client = new coreapi.Client(null, [transport])
+    const document = new coreapi.Document('', '', {nested: {link: new coreapi.Link('http://example.com')}})
 
-    const doAction = function () {
-      return client.action(document, index, params)
-    }
-
-    expect(doAction).toThrow()
+    client.action(document, ['nested', 'link'])
+      .then((data) => {
+        expect(typeof data).toEqual('object')
+        expect(data).toEqual({'text': 'hello'})
+      })
+      .catch((error) => {
+        expect(error).toNotExist()
+      })
   })
 })
