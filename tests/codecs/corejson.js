@@ -1,14 +1,30 @@
 const codecs = require('../../lib/codecs')
 const document = require('../../lib/document')
 
-const codec = new codecs.CoreJSONCodec()
-
 describe('Test the CoreJSON Codec', function () {
-  it('should check the decode function', function () {
-    const text = 'Hello World!'
-    const data = codec.decode(text)
+  const codec = new codecs.CoreJSONCodec()
 
-    expect(data instanceof document.Document).toBeTruthy()
-    expect(data).toEqual(new document.Document('Hello World!'))
+  it('should test decoding a document', function () {
+    const text = '{"_type": "document"}'
+    const node = codec.decode(text)
+    expect(node instanceof document.Document).toBeTruthy()
+  })
+
+  it('should test decoding an object', function () {
+    const text = '{"text": "Hello World!"}'
+    const node = codec.decode(text)
+    expect(node instanceof Object).toBeTruthy()
+  })
+
+  it('should test decoding a link', function () {
+    const text = '{"_type": "link"}'
+    const node = codec.decode(text)
+    expect(node instanceof document.Link).toBeTruthy()
+  })
+
+  it('should test decoding a primitive', function () {
+    const text = '123'
+    const node = codec.decode(text)
+    expect(node).toEqual(123)
   })
 })
