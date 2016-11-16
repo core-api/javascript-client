@@ -47,7 +47,7 @@ Install it with NPM or add it to your package.json:
 
 
 ```javascript    
-import coreapi from 'coreapi';
+const coreapi = require('coreapi');
 
 const client = new coreapi.Client()
 
@@ -66,3 +66,7 @@ client.get("http://httpbin.org/")
 To run the tests (linting & unit tests):
 
     npm test
+
+To generate a coverage report:
+
+    npm run jest -- --coverage
