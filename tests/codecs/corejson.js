@@ -5,10 +5,21 @@ describe('Test the CoreJSON Codec', function () {
   const codec = new codecs.CoreJSONCodec()
 
   it('should test decoding a document', function () {
-    const text = '{"_type": "document", "_meta": {"title": "Example"}}'
+    const text = '{"_type": "document", "_meta": {"title": "Example"}, "value": 123}'
     const node = codec.decode(text)
+
     expect(node instanceof document.Document).toBeTruthy()
+    expect(node.url).toEqual('')
     expect(node.title).toEqual('Example')
+    expect(node.content).toEqual({value: 123})
+  })
+
+  it('should test decoding a document (escapes content)', function () {
+    const text = '{"_type": "document", "__meta": 123}'
+    const node = codec.decode(text)
+
+    expect(node instanceof document.Document).toBeTruthy()
+    expect(node.content).toEqual({_meta: 123})
   })
 
   it('should test decoding an object', function () {
