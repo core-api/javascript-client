@@ -28,6 +28,10 @@
     "globals": [ "describe", "it", "expect" ]
   },
   "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/tests/__helpers__/"
+    ],
     "testRegex": "/tests/.*\\.(ts|tsx|js)$"
   },
   "dependencies": {
