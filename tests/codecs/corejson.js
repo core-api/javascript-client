@@ -23,6 +23,13 @@ describe('Test the CoreJSON Codec', function () {
     expect(node.url).toEqual('http://example.com/')
   })
 
+  it('should test decoding a link (invalid url)', function () {
+    const text = '{"_type": "link", "url": 123}'
+    const node = codec.decode(text)
+    expect(node instanceof document.Link).toBeTruthy()
+    expect(node.url).toEqual('')
+  })
+
   it('should test decoding a primitive', function () {
     const text = '123'
     const node = codec.decode(text)
