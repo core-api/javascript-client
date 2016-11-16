@@ -14,6 +14,14 @@ describe('Test the CoreJSON Codec', function () {
     expect(node.content).toEqual({value: 123})
   })
 
+  it('should test decoding a document (escapes content)', function () {
+    const text = '{"_type": "document", "__meta": 123}'
+    const node = codec.decode(text)
+
+    expect(node instanceof document.Document).toBeTruthy()
+    expect(node.content).toEqual({_meta: 123})
+  })
+
   it('should test decoding an object', function () {
     const text = '{"text": "Hello World!"}'
     const node = codec.decode(text)
