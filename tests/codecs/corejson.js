@@ -74,6 +74,13 @@ describe('Test the CoreJSON Codec', function () {
     expect(node.url).toEqual('')
   })
 
+  it('should test decoding a link with a required field', function () {
+    const text = '{"_type": "link", "url": "http://example.com/", "fields": [{"name": "foo", "required": true}]}'
+    const node = codec.decode(text)
+    expect(node instanceof document.Link).toBeTruthy()
+    expect(node.fields).toEqual([new document.Field('foo', true)])
+  })
+
   it('should test decoding a primitive', function () {
     const text = '123'
     const node = codec.decode(text)

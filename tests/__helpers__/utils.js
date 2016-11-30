@@ -29,12 +29,19 @@ const mockedFetch = function (responseBody, contentType, statusCode = 200) {
 
 const echo = function (url, options = {}) {
   const method = options.method
+  const body = options.body
 
   return new Promise((resolve, reject) => {
     const textPromise = () => {
       return new Promise((resolve, reject) => {
+        let result
+        if (body) {
+          result = `{"url": "${url}", "method": "${method}", "body": ${body}}`
+        } else {
+          result = `{"url": "${url}", "method": "${method}"}`
+        }
         process.nextTick(
-          resolve(`{"url": "${url}", "method": "${method}"}`)
+          resolve(result)
         )
       })
     }
