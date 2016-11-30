@@ -1,6 +1,6 @@
 {
   "name": "coreapi",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Javascript client library for Core API",
   "main": "lib/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "watch": "watchify --standalone coreapi -t babelify lib/index.js -o dist/coreapi.js -v",
     "prepublish": "npm run build",
     "jest": "jest",
-    "test": "standard && npm run jest"
+    "test": "standard && jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,12 @@
     "url": "https://github.com/core-api/javascript-client/issues"
   },
   "standard": {
-    "globals": [ "describe", "it", "expect" ]
+    "globals": [
+      "describe",
+      "expect",
+      "it",
+      "xit"
+    ]
   },
   "jest": {
     "testPathIgnorePatterns": [
@@ -36,7 +41,8 @@
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
-    "url-parse": "^1.1.7"
+    "url-parse": "^1.1.7",
+    "url-template": "^2.0.8"
   },
   "devDependencies": {
     "babel-jest": "^17.0.0",
