@@ -2,17 +2,11 @@
 
 Javascript client library for [Core API][core-api].
 
-[![build-status-image]][travis]
-[![npm-version]][npm]
+[![travis-image]][travis-url]
+[![npm-image]][npm-url]
+[![codecov-image][codecov-url]]
 
 **In progress.**
-
-[core-api]: https://github.com/core-api/core-api/
-[build-status-image]: https://secure.travis-ci.org/core-api/javascript-client.svg?branch=master
-[travis]: http://travis-ci.org/core-api/javascript-client?branch=master
-[npm-version]: https://badge.fury.io/js/coreapi.svg
-[npm]: http://badge.fury.io/js/coreapi
-
 
 ### Usage
 
@@ -67,6 +61,10 @@ To run the tests (linting & unit tests):
 
     npm test
 
-To generate a coverage report:
-
-    npm run jest -- --coverage
+[core-api]: https://github.com/core-api/core-api/
+[travis-image]: https://secure.travis-ci.org/core-api/javascript-client.svg?branch=master
+[travis-url]: http://travis-ci.org/core-api/javascript-client?branch=master
+[npm-images]: https://badge.fury.io/js/coreapi.svg
+[npm-url]: http://badge.fury.io/js/coreapi
+[codecov-image]: https://codecov.io/gh/core-api/javascript-client/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/core-api/javascript-client
