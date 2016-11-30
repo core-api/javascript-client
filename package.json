@@ -25,7 +25,12 @@
     "url": "https://github.com/core-api/javascript-client/issues"
   },
   "standard": {
-    "globals": [ "describe", "expect", "it", "xit" ]
+    "globals": [
+      "describe",
+      "expect",
+      "it",
+      "xit"
+    ]
   },
   "jest": {
     "testPathIgnorePatterns": [
@@ -36,7 +41,8 @@
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
-    "url-parse": "^1.1.7"
+    "url-parse": "^1.1.7",
+    "url-template": "^2.0.8"
   },
   "devDependencies": {
     "babel-jest": "^17.0.0",

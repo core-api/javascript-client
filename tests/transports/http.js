@@ -49,6 +49,25 @@ describe('Test the HTTPTransport', function () {
       })
   })
 
+  it('should check the action function of an HTTP transport (json) with path params', function () {
+    const url = 'http://www.example.com/{user}/'
+    const fields = [new document.Field('user', 'path')]
+    const link = new document.Link(url, fields)
+    const transport = new transports.HTTPTransport(testUtils.echoUrl)
+    const params = {
+      user: 23
+    }
+
+    return transport.action(link, decoders, params)
+      .then((res) => {
+        expect(res).toEqual({url: 'http://www.example.com/23/'})
+      })
+  })
+
+  xit('should check the action function of an HTTP transport (json) with invalid path params', function () {
+
+  })
+
   xit('should check the action function of an HTTP transport (json) with ignored query params', function () {
 
   })
