@@ -30,6 +30,22 @@ describe('Test the CoreJSON Codec', function () {
     expect(node.content).toEqual({link: new document.Link('http://example.com/')})
   })
 
+  it('should test decoding a document (including a nested link)', function () {
+    const text = '{"_type": "document", "nested": {"link": {"_type": "link", "url": "http://example.com/"}}}'
+    const node = codec.decode(text)
+
+    expect(node instanceof document.Document).toBeTruthy()
+    expect(node.content).toEqual({nested: {link: new document.Link('http://example.com/')}})
+  })
+
+  it('should test decoding a document (including an array nested link)', function () {
+    const text = '{"_type": "document", "nested": [{"_type": "link", "url": "http://example.com/"}]}'
+    const node = codec.decode(text)
+
+    expect(node instanceof document.Document).toBeTruthy()
+    expect(node.content).toEqual({nested: [new document.Link('http://example.com/')]})
+  })
+
   it('should test decoding an object', function () {
     const text = '{"text": "Hello World!"}'
     const node = codec.decode(text)
