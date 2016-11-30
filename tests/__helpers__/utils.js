@@ -27,6 +27,34 @@ const mockedFetch = function (responseBody, contentType, statusCode = 200) {
   }
 }
 
+const echoUrl = function (url) {
+  return new Promise((resolve, reject) => {
+    const textPromise = () => {
+      return new Promise((resolve, reject) => {
+        process.nextTick(
+          resolve(`{"url": "${url}"}`)
+        )
+      })
+    }
+
+    process.nextTick(
+      resolve({
+        url: url,
+        status: 200,
+        statusText: 'OK',
+        ok: true,
+        headers: {
+          get (header) {
+            return 'application/json'
+          }
+        },
+        text: textPromise
+      })
+    )
+  })
+}
+
 module.exports = {
-  mockedFetch: mockedFetch
+  mockedFetch: mockedFetch,
+  echoUrl: echoUrl
 }
