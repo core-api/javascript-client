@@ -27,12 +27,14 @@ const mockedFetch = function (responseBody, contentType, statusCode = 200) {
   }
 }
 
-const echoUrl = function (url) {
+const echo = function (url, options = {}) {
+  const method = options.method
+
   return new Promise((resolve, reject) => {
     const textPromise = () => {
       return new Promise((resolve, reject) => {
         process.nextTick(
-          resolve(`{"url": "${url}"}`)
+          resolve(`{"url": "${url}", "method": "${method}"}`)
         )
       })
     }
@@ -56,5 +58,5 @@ const echoUrl = function (url) {
 
 module.exports = {
   mockedFetch: mockedFetch,
-  echoUrl: echoUrl
+  echo: echo
 }
