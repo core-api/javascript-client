@@ -27,7 +27,31 @@ describe('Test the CoreJSON Codec', function () {
     const node = codec.decode(text)
 
     expect(node instanceof document.Document).toBeTruthy()
-    expect(node.content).toEqual({link: new document.Link('http://example.com/')})
+    expect(node.content).toEqual({link: new document.Link('http://example.com/', 'get')})
+  })
+
+  it('should test decoding a document (including a link with a query parameter)', function () {
+    const text = '{"_type": "document", "link": {"_type": "link", "url": "http://example.com/", "fields": [{"name": "page", "location": "query"}]}}'
+    const node = codec.decode(text)
+
+    expect(node instanceof document.Document).toBeTruthy()
+    expect(node.content).toEqual({link: new document.Link('http://example.com/', 'get', [new document.Field('page', false, 'query')])})
+  })
+
+  it('should test decoding a document (including a nested link)', function () {
+    const text = '{"_type": "document", "nested": {"link": {"_type": "link", "url": "http://example.com/"}}}'
+    const node = codec.decode(text)
+
+    expect(node instanceof document.Document).toBeTruthy()
+    expect(node.content).toEqual({nested: {link: new document.Link('http://example.com/', 'get')}})
+  })
+
+  it('should test decoding a document (including an array nested link)', function () {
+    const text = '{"_type": "document", "nested": [{"_type": "link", "url": "http://example.com/"}]}'
+    const node = codec.decode(text)
+
+    expect(node instanceof document.Document).toBeTruthy()
+    expect(node.content).toEqual({nested: [new document.Link('http://example.com/', 'get')]})
   })
 
   it('should test decoding an object', function () {
@@ -48,6 +72,13 @@ describe('Test the CoreJSON Codec', function () {
     const node = codec.decode(text)
     expect(node instanceof document.Link).toBeTruthy()
     expect(node.url).toEqual('')
+  })
+
+  it('should test decoding a link with a required field', function () {
+    const text = '{"_type": "link", "url": "http://example.com/", "fields": [{"name": "foo", "required": true}]}'
+    const node = codec.decode(text)
+    expect(node instanceof document.Link).toBeTruthy()
+    expect(node.fields).toEqual([new document.Field('foo', true)])
   })
 
   it('should test decoding a primitive', function () {
