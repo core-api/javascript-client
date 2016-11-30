@@ -11,6 +11,7 @@ const mockedFetch = function (responseBody, contentType, statusCode = 200) {
 
       process.nextTick(
         resolve({
+          url: url,
           status: statusCode,
           statusText: statusCode === 200 ? 'OK' : 'BAD REQUEST',
           ok: statusCode === 200,
