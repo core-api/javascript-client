@@ -8,7 +8,7 @@
     "watch": "watchify --standalone coreapi -t babelify lib/index.js -o dist/coreapi.js -v",
     "prepublish": "npm run build",
     "jest": "jest",
-    "test": "standard && npm run jest"
+    "test": "standard && jest --coverage"
   },
   "repository": {
     "type": "git",
