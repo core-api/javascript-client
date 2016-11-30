@@ -1,5 +1,6 @@
 const transports = require('../../lib/transports')
 const codecs = require('../../lib/codecs')
+const errors = require('../../lib/errors')
 const document = require('../../lib/document')
 const testUtils = require('../__helpers__/utils')
 
@@ -36,7 +37,7 @@ describe('Test the HTTPTransport', function () {
 
   it('should check the action function of an HTTP transport (json) with query params', function () {
     const url = 'http://www.example.com/'
-    const fields = [new document.Field('page', 'query')]
+    const fields = [new document.Field('page', false, 'query')]
     const link = new document.Link(url, fields)
     const transport = new transports.HTTPTransport(testUtils.echoUrl)
     const params = {
@@ -51,7 +52,7 @@ describe('Test the HTTPTransport', function () {
 
   it('should check the action function of an HTTP transport (json) with path params', function () {
     const url = 'http://www.example.com/{user}/'
-    const fields = [new document.Field('user', 'path')]
+    const fields = [new document.Field('user', true, 'path')]
     const link = new document.Link(url, fields)
     const transport = new transports.HTTPTransport(testUtils.echoUrl)
     const params = {
@@ -64,11 +65,39 @@ describe('Test the HTTPTransport', function () {
       })
   })
 
-  xit('should check the action function of an HTTP transport (json) with invalid path params', function () {
+  it('should check the action function of an HTTP transport (json) with missing optional query params', function () {
+    const url = 'http://www.example.com/'
+    const fields = [new document.Field('page', false, 'query')]
+    const link = new document.Link(url, fields)
+    const transport = new transports.HTTPTransport(testUtils.echoUrl)
+    const params = {}
 
+    return transport.action(link, decoders, params)
+      .then((res) => {
+        expect(res).toEqual({url: 'http://www.example.com/'})
+      })
   })
 
-  xit('should check the action function of an HTTP transport (json) with ignored query params', function () {
+  it('should check the action function of an HTTP transport (json) with missing required parameter', function () {
+    const url = 'http://www.example.com/{user}/'
+    const fields = [new document.Field('user', true, 'path')]
+    const link = new document.Link(url, fields)
+    const transport = new transports.HTTPTransport(testUtils.echoUrl)
+    const params = {}
 
+    const callTransport = () => transport.action(link, decoders, params)
+    expect(callTransport).toThrowError(new errors.ParameterError('Missing required field: "user"'))
+  })
+
+  it('should check the action function of an HTTP transport (json) with unknown paramater', function () {
+    const url = 'http://www.example.com/'
+    const link = new document.Link(url)
+    const transport = new transports.HTTPTransport(testUtils.echoUrl)
+    const params = {
+      hello: 'world'
+    }
+
+    const callTransport = () => transport.action(link, decoders, params)
+    expect(callTransport).toThrowError(new errors.ParameterError('Unknown parameter: "hello"'))
   })
 })
