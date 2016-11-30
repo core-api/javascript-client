@@ -64,7 +64,7 @@ To run the tests (linting & unit tests):
 [core-api]: https://github.com/core-api/core-api/
 [travis-image]: https://secure.travis-ci.org/core-api/javascript-client.svg?branch=master
 [travis-url]: http://travis-ci.org/core-api/javascript-client?branch=master
-[npm-images]: https://badge.fury.io/js/coreapi.svg
+[npm-image]: https://badge.fury.io/js/coreapi.svg
 [npm-url]: http://badge.fury.io/js/coreapi
 [codecov-image]: https://codecov.io/gh/core-api/javascript-client/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/core-api/javascript-client
