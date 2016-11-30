@@ -91,6 +91,21 @@ describe('Test the HTTPTransport', function () {
       })
   })
 
+  it('should check the action function of an HTTP transport (json) with post request and a body parameter', function () {
+    const url = 'http://www.example.com/'
+    const fields = [new document.Field('hello', true, 'body')]
+    const link = new document.Link(url, 'post', fields)
+    const transport = new transports.HTTPTransport(testUtils.echo)
+    const params = {
+      hello: 'world'
+    }
+
+    return transport.action(link, decoders, params)
+      .then((res) => {
+        expect(res).toEqual({url: 'http://www.example.com/', method: 'post', body: 'world'})
+      })
+  })
+
   it('should check the action function of an HTTP transport (json) with missing optional query params', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('page', false, 'query')]
