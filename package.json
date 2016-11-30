@@ -25,7 +25,7 @@
     "url": "https://github.com/core-api/javascript-client/issues"
   },
   "standard": {
-    "globals": [ "describe", "it", "expect" ]
+    "globals": [ "describe", "expect", "it", "xit" ]
   },
   "jest": {
     "testPathIgnorePatterns": [

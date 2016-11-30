@@ -36,7 +36,8 @@ describe('Test the HTTPTransport', function () {
 
   it('should check the action function of an HTTP transport (json) with query params', function () {
     const url = 'http://www.example.com/'
-    const link = new document.Link(url)
+    const fields = [new document.Field('page', 'query')]
+    const link = new document.Link(url, fields)
     const transport = new transports.HTTPTransport(testUtils.echoUrl)
     const params = {
       page: 23
@@ -46,5 +47,9 @@ describe('Test the HTTPTransport', function () {
       .then((res) => {
         expect(res).toEqual({url: 'http://www.example.com/?page=23'})
       })
+  })
+
+  xit('should check the action function of an HTTP transport (json) with ignored query params', function () {
+
   })
 })
