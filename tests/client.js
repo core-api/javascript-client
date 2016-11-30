@@ -39,7 +39,7 @@ describe('Test the Client', function () {
     const fetch = testUtils.mockedFetch('{"text": "hello"}', 'application/json')
     const transport = new transportsModule.HTTPTransport(fetch)
     const client = new coreapi.Client(null, [transport])
-    const document = new coreapi.Document('', '', {nested: {link: new coreapi.Link('http://example.com', 'get')}})
+    const document = new coreapi.Document('', '', '', {nested: {link: new coreapi.Link('http://example.com', 'get')}})
 
     client.action(document, ['nested', 'link'])
       .then((data) => {
