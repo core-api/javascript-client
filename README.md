@@ -4,7 +4,7 @@ Javascript client library for [Core API][core-api].
 
 [![travis-image]][travis-url]
 [![npm-image]][npm-url]
-[![codecov-image][codecov-url]]
+[![codecov-image]][codecov-url]]
 
 **In progress.**
 
