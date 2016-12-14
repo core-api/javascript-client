@@ -38,7 +38,7 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with query params', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('page', false, 'query')]
-    const link = new document.Link(url, 'get', fields)
+    const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport(testUtils.echo)
     const params = {
       page: 23
@@ -53,7 +53,7 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with path params', function () {
     const url = 'http://www.example.com/{user}/'
     const fields = [new document.Field('user', true, 'path')]
-    const link = new document.Link(url, 'get', fields)
+    const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport(testUtils.echo)
     const params = {
       user: 23
@@ -79,7 +79,7 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with post request and form parameters', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('hello', true, 'form')]
-    const link = new document.Link(url, 'post', fields)
+    const link = new document.Link(url, 'post', 'application/json', fields)
     const transport = new transports.HTTPTransport(testUtils.echo)
     const params = {
       hello: 'world'
@@ -94,7 +94,7 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with post request and a body parameter', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('hello', true, 'body')]
-    const link = new document.Link(url, 'post', fields)
+    const link = new document.Link(url, 'post', 'application/json', fields)
     const transport = new transports.HTTPTransport(testUtils.echo)
     const params = {
       hello: 'world'
@@ -109,7 +109,7 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with missing optional query params', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('page', false, 'query')]
-    const link = new document.Link(url, 'get', fields)
+    const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport(testUtils.echo)
     const params = {}
 
@@ -122,7 +122,7 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with missing required parameter', function () {
     const url = 'http://www.example.com/{user}/'
     const fields = [new document.Field('user', true, 'path')]
-    const link = new document.Link(url, 'get', fields)
+    const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport(testUtils.echo)
     const params = {}
 
