@@ -46,7 +46,7 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders, params)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/?page=23', headers: {}, method: 'get'})
+        expect(res).toEqual({url: 'http://www.example.com/?page=23', headers: {}, method: 'GET'})
       })
   })
 
@@ -61,7 +61,7 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders, params)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/23/', headers: {}, method: 'get'})
+        expect(res).toEqual({url: 'http://www.example.com/23/', headers: {}, method: 'GET'})
       })
   })
 
@@ -72,7 +72,7 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/', headers: {}, method: 'post'})
+        expect(res).toEqual({url: 'http://www.example.com/', headers: {}, method: 'POST'})
       })
   })
 
@@ -84,7 +84,7 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/', headers: {'X-CSRFToken': 'abc'}, method: 'post'})
+        expect(res).toEqual({url: 'http://www.example.com/', headers: {'X-CSRFToken': 'abc'}, method: 'POST'})
       })
   })
 
@@ -96,7 +96,7 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/', headers: {}, method: 'post'})
+        expect(res).toEqual({url: 'http://www.example.com/', headers: {}, method: 'GET'})
       })
   })
 
@@ -111,7 +111,7 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders, params)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/', method: 'post', headers: {'Content-Type': 'application/json'}, body: {hello: 'world'}})
+        expect(res).toEqual({url: 'http://www.example.com/', method: 'POST', headers: {'Content-Type': 'application/json'}, body: {hello: 'world'}})
       })
   })
 
@@ -126,7 +126,7 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders, params)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/', method: 'post', headers: {'Content-Type': 'application/json'}, body: 'world'})
+        expect(res).toEqual({url: 'http://www.example.com/', method: 'POST', headers: {'Content-Type': 'application/json'}, body: 'world'})
       })
   })
 
@@ -139,7 +139,7 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders, params)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/', headers: {}, method: 'get'})
+        expect(res).toEqual({url: 'http://www.example.com/', headers: {}, method: 'GET'})
       })
   })
 
