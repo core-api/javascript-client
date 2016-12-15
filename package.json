@@ -1,6 +1,6 @@
 {
   "name": "coreapi",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Javascript client library for Core API",
   "main": "lib/index.js",
   "scripts": {
