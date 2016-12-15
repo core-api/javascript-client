@@ -29,6 +29,7 @@ const mockedFetch = function (responseBody, contentType, statusCode = 200) {
 
 const echo = function (url, options = {}) {
   const method = options.method
+  const headers = JSON.stringify(options.headers)
   const body = options.body
 
   return new Promise((resolve, reject) => {
@@ -36,9 +37,9 @@ const echo = function (url, options = {}) {
       return new Promise((resolve, reject) => {
         let result
         if (body) {
-          result = `{"url": "${url}", "method": "${method}", "body": ${body}}`
+          result = `{"url": "${url}", "method": "${method}", "headers": ${headers}, "body": ${body}}`
         } else {
-          result = `{"url": "${url}", "method": "${method}"}`
+          result = `{"url": "${url}", "method": "${method}", "headers": ${headers}}`
         }
         process.nextTick(
           resolve(result)
