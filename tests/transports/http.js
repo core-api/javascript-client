@@ -32,7 +32,11 @@ describe('Test the HTTPTransport', function () {
     const link = new document.Link(url, 'get')
     const transport = new transports.HTTPTransport(null, testUtils.mockedFetch('ERROR', 'text/html', 500))
 
-    expect(transport.action(link, decoders).then(() => {}).catch(() => {})).toThrow()
+    return transport.action(link, decoders)
+      .catch(function (result) {
+        expect(result.message).toEqual('500 BAD REQUEST')
+        expect(result.content).toEqual('ERROR')
+      })
   })
 
   it('should check the action function of an HTTP transport (json) with query params', function () {
