@@ -11,7 +11,6 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.mockedFetch('Hello, world', 'text/html')
     })
 
@@ -25,7 +24,6 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.mockedFetch('{"text": "Hello, world"}', 'application/json')
     })
 
@@ -47,7 +45,6 @@ describe('Test the HTTPTransport', function () {
     const fields = [new document.Field('firstField', true, 'form'), new document.Field('secondField', true, 'form')]
     const link = new document.Link(url, 'post', 'application/x-www-form-urlencoded', fields)
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.echo
     })
     const params = {
@@ -70,7 +67,6 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.mockedFetch('ERROR', 'text/html', 500)
     })
 
@@ -86,7 +82,6 @@ describe('Test the HTTPTransport', function () {
     const fields = [new document.Field('page', false, 'query')]
     const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.echo
     })
     const params = {
@@ -104,7 +99,6 @@ describe('Test the HTTPTransport', function () {
     const fields = [new document.Field('user', true, 'path')]
     const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.echo
     })
     const params = {
@@ -121,7 +115,6 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'post')
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.echo
     })
 
@@ -166,7 +159,6 @@ describe('Test the HTTPTransport', function () {
     const fields = [new document.Field('hello', true, 'form')]
     const link = new document.Link(url, 'post', 'application/json', fields)
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.echo
     })
     const params = {
@@ -184,7 +176,6 @@ describe('Test the HTTPTransport', function () {
     const fields = [new document.Field('hello', true, 'body')]
     const link = new document.Link(url, 'post', 'application/json', fields)
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.echo
     })
     const params = {
@@ -202,7 +193,6 @@ describe('Test the HTTPTransport', function () {
     const fields = [new document.Field('page', false, 'query')]
     const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.echo
     })
     const params = {}
@@ -218,7 +208,6 @@ describe('Test the HTTPTransport', function () {
     const fields = [new document.Field('user', true, 'path')]
     const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.echo
     })
     const params = {}
@@ -231,7 +220,6 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
     const transport = new transports.HTTPTransport({
-      csrf: null,
       fetch: testUtils.echo
     })
     const params = {
