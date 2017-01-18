@@ -27,6 +27,36 @@ describe('Test the HTTPTransport', function () {
       .then(res => expect(res).toEqual({text: 'Hello, world'}))
   })
 
+  xit('should check the action function of an HTTP transport (multipart/form-data)', function () {
+    const url = 'http://www.example.com/'
+    const link = new document.Link(url, 'get', 'multipart/form-data')
+    const transport = new transports.HTTPTransport(testUtils.mockedFetch('{"text": "Hello, world"}', 'application/json'))
+
+    return transport.action(link, decoders)
+      .then(res => expect(res).toEqual({text: 'Hello, world'}))
+  })
+
+  it('should check the action function of an HTTP transport (application/x-www-form-urlencoded)', function () {
+    const url = 'http://www.example.com/'
+    const fields = [new document.Field('firstField', true, 'form'), new document.Field('secondField', true, 'form')]
+    const link = new document.Link(url, 'post', 'application/x-www-form-urlencoded', fields)
+    const transport = new transports.HTTPTransport(null, testUtils.echo)
+    const params = {
+      firstField: 'hello',
+      secondField: 'world'
+    }
+
+    return transport.action(link, decoders, params)
+      .then(res => expect(res).toEqual({
+        url: 'http://www.example.com/',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'firstField=hello&secondField=world'
+      }))
+  })
+
   it('should check the action function of an HTTP transport (network fail)', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
@@ -42,7 +72,7 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with query params', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('page', false, 'query')]
-    const link = new document.Link(url, 'get', fields)
+    const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport(null, testUtils.echo)
     const params = {
       page: 23
@@ -57,7 +87,7 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with path params', function () {
     const url = 'http://www.example.com/{user}/'
     const fields = [new document.Field('user', true, 'path')]
-    const link = new document.Link(url, 'get', fields)
+    const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport(null, testUtils.echo)
     const params = {
       user: 23
@@ -107,7 +137,7 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with post request and form parameters', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('hello', true, 'form')]
-    const link = new document.Link(url, 'post', fields)
+    const link = new document.Link(url, 'post', 'application/json', fields)
     const transport = new transports.HTTPTransport(null, testUtils.echo)
     const params = {
       hello: 'world'
@@ -115,14 +145,14 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders, params)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/', method: 'POST', headers: {'Content-Type': 'application/json'}, body: {hello: 'world'}})
+        expect(res).toEqual({url: 'http://www.example.com/', method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({hello: 'world'})})
       })
   })
 
   it('should check the action function of an HTTP transport (json) with post request and a body parameter', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('hello', true, 'body')]
-    const link = new document.Link(url, 'post', fields)
+    const link = new document.Link(url, 'post', 'application/json', fields)
     const transport = new transports.HTTPTransport(null, testUtils.echo)
     const params = {
       hello: 'world'
@@ -130,14 +160,14 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders, params)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/', method: 'POST', headers: {'Content-Type': 'application/json'}, body: 'world'})
+        expect(res).toEqual({url: 'http://www.example.com/', method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify('world')})
       })
   })
 
   it('should check the action function of an HTTP transport (json) with missing optional query params', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('page', false, 'query')]
-    const link = new document.Link(url, 'get', fields)
+    const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport(null, testUtils.echo)
     const params = {}
 
@@ -150,7 +180,7 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with missing required parameter', function () {
     const url = 'http://www.example.com/{user}/'
     const fields = [new document.Field('user', true, 'path')]
-    const link = new document.Link(url, 'get', fields)
+    const link = new document.Link(url, 'get', 'application/json', fields)
     const transport = new transports.HTTPTransport(null, testUtils.echo)
     const params = {}
 

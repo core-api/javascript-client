@@ -35,7 +35,7 @@ describe('Test the CoreJSON Codec', function () {
     const node = codec.decode(text)
 
     expect(node instanceof document.Document).toBeTruthy()
-    expect(node.content).toEqual({link: new document.Link('http://example.com/', 'get', [new document.Field('page', false, 'query')])})
+    expect(node.content).toEqual({link: new document.Link('http://example.com/', 'get', 'application/json', [new document.Field('page', false, 'query')])})
   })
 
   it('should test decoding a document (including a nested link)', function () {
