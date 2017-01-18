@@ -36,9 +36,9 @@ const echo = function (url, options = {}) {
       return new Promise((resolve, reject) => {
         let result
         if (body) {
-          result = `{"url": "${url}", "method": "${method}", "body": ${body}}`
+          result = JSON.stringify({url: url, method: method, body: body})
         } else {
-          result = `{"url": "${url}", "method": "${method}"}`
+          result = JSON.stringify({url: url, method: method})
         }
         process.nextTick(
           resolve(result)

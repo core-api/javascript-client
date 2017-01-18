@@ -27,6 +27,33 @@ describe('Test the HTTPTransport', function () {
       .then(res => expect(res).toEqual({text: 'Hello, world'}))
   })
 
+  xit('should check the action function of an HTTP transport (multipart/form-data)', function () {
+    const url = 'http://www.example.com/'
+    const link = new document.Link(url, 'get', 'multipart/form-data')
+    const transport = new transports.HTTPTransport(testUtils.mockedFetch('{"text": "Hello, world"}', 'application/json'))
+
+    return transport.action(link, decoders)
+      .then(res => expect(res).toEqual({text: 'Hello, world'}))
+  })
+
+  it('should check the action function of an HTTP transport (application/x-www-form-urlencoded)', function () {
+    const url = 'http://www.example.com/'
+    const fields = [new document.Field('firstField', true, 'form'), new document.Field('secondField', true, 'form')]
+    const link = new document.Link(url, 'post', 'application/x-www-form-urlencoded', fields)
+    const transport = new transports.HTTPTransport(testUtils.echo)
+    const params = {
+      firstField: 'hello',
+      secondField: 'world'
+    }
+
+    return transport.action(link, decoders, params)
+      .then(res => expect(res).toEqual({
+        body: 'firstField=hello&secondField=world',
+        method: 'post',
+        url: 'http://www.example.com/'
+      }))
+  })
+
   it('should check the action function of an HTTP transport (network fail)', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
@@ -87,7 +114,7 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders, params)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/', method: 'post', body: {hello: 'world'}})
+        expect(res).toEqual({url: 'http://www.example.com/', method: 'post', body: JSON.stringify({hello: 'world'})})
       })
   })
 
@@ -102,7 +129,7 @@ describe('Test the HTTPTransport', function () {
 
     return transport.action(link, decoders, params)
       .then((res) => {
-        expect(res).toEqual({url: 'http://www.example.com/', method: 'post', body: 'world'})
+        expect(res).toEqual({url: 'http://www.example.com/', method: 'post', body: JSON.stringify('world')})
       })
   })
 
