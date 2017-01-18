@@ -1,3 +1,13 @@
+class MockedFormData {
+  constructor () {
+    this.params = []
+  }
+
+  append (key, value) {
+    this.params.push([key, value])
+  }
+}
+
 const mockedFetch = function (responseBody, contentType, statusCode = 200) {
   return (url) => {
     return new Promise((resolve, reject) => {
@@ -36,7 +46,9 @@ const echo = function (url, options = {}) {
     const textPromise = () => {
       return new Promise((resolve, reject) => {
         let result
-        if (body) {
+        if (body instanceof MockedFormData) {
+          result = JSON.stringify({url: url, method: method, headers: headers, form: body.params})
+        } else if (body) {
           result = JSON.stringify({url: url, method: method, headers: headers, body: body})
         } else {
           result = JSON.stringify({url: url, method: method, headers: headers})
@@ -65,6 +77,7 @@ const echo = function (url, options = {}) {
 }
 
 module.exports = {
+  MockedFormData: MockedFormData,
   mockedFetch: mockedFetch,
   echo: echo
 }
