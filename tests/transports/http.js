@@ -31,13 +31,26 @@ describe('Test the HTTPTransport', function () {
       .then(res => expect(res).toEqual({text: 'Hello, world'}))
   })
 
-  xit('should check the action function of an HTTP transport (multipart/form-data)', function () {
+  it('should check the action function of an HTTP transport (multipart/form-data)', function () {
     const url = 'http://www.example.com/'
-    const link = new document.Link(url, 'get', 'multipart/form-data')
-    const transport = new transports.HTTPTransport(testUtils.mockedFetch('{"text": "Hello, world"}', 'application/json'))
+    const fields = [new document.Field('firstField', true, 'form'), new document.Field('secondField', true, 'form')]
+    const link = new document.Link(url, 'post', 'multipart/form-data', fields)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo,
+      FormData: testUtils.MockedFormData
+    })
+    const params = {
+      firstField: 'hello',
+      secondField: 'world'
+    }
 
-    return transport.action(link, decoders)
-      .then(res => expect(res).toEqual({text: 'Hello, world'}))
+    return transport.action(link, decoders, params)
+      .then(res => expect(res).toEqual({
+        url: 'http://www.example.com/',
+        method: 'POST',
+        headers: {},
+        form: [['firstField', 'hello'], ['secondField', 'world']]
+      }))
   })
 
   it('should check the action function of an HTTP transport (application/x-www-form-urlencoded)', function () {
