@@ -10,7 +10,9 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (text/html)', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
-    const transport = new transports.HTTPTransport(null, testUtils.mockedFetch('Hello, world', 'text/html'))
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.mockedFetch('Hello, world', 'text/html')
+    })
 
     return transport.action(link, decoders)
       .then((res) => {
@@ -21,7 +23,9 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json)', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
-    const transport = new transports.HTTPTransport(null, testUtils.mockedFetch('{"text": "Hello, world"}', 'application/json'))
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.mockedFetch('{"text": "Hello, world"}', 'application/json')
+    })
 
     return transport.action(link, decoders)
       .then(res => expect(res).toEqual({text: 'Hello, world'}))
@@ -40,7 +44,9 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('firstField', true, 'form'), new document.Field('secondField', true, 'form')]
     const link = new document.Link(url, 'post', 'application/x-www-form-urlencoded', fields)
-    const transport = new transports.HTTPTransport(null, testUtils.echo)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
     const params = {
       firstField: 'hello',
       secondField: 'world'
@@ -60,7 +66,9 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (network fail)', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
-    const transport = new transports.HTTPTransport(null, testUtils.mockedFetch('ERROR', 'text/html', 500))
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.mockedFetch('ERROR', 'text/html', 500)
+    })
 
     return transport.action(link, decoders)
       .catch(function (result) {
@@ -73,7 +81,9 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('page', false, 'query')]
     const link = new document.Link(url, 'get', 'application/json', fields)
-    const transport = new transports.HTTPTransport(null, testUtils.echo)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
     const params = {
       page: 23
     }
@@ -88,7 +98,9 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/{user}/'
     const fields = [new document.Field('user', true, 'path')]
     const link = new document.Link(url, 'get', 'application/json', fields)
-    const transport = new transports.HTTPTransport(null, testUtils.echo)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
     const params = {
       user: 23
     }
@@ -102,7 +114,9 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with post request', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'post')
-    const transport = new transports.HTTPTransport(null, testUtils.echo)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
 
     return transport.action(link, decoders)
       .then((res) => {
@@ -114,7 +128,10 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'post')
     const csrf = {'X-CSRFToken': 'abc'}
-    const transport = new transports.HTTPTransport(csrf, testUtils.echo)
+    const transport = new transports.HTTPTransport({
+      csrf: csrf,
+      fetch: testUtils.echo
+    })
 
     return transport.action(link, decoders)
       .then((res) => {
@@ -126,7 +143,10 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
     const csrf = {'X-CSRFToken': 'abc'}
-    const transport = new transports.HTTPTransport(csrf, testUtils.echo)
+    const transport = new transports.HTTPTransport({
+      csrf: csrf,
+      fetch: testUtils.echo
+    })
 
     return transport.action(link, decoders)
       .then((res) => {
@@ -138,7 +158,9 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('hello', true, 'form')]
     const link = new document.Link(url, 'post', 'application/json', fields)
-    const transport = new transports.HTTPTransport(null, testUtils.echo)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
     const params = {
       hello: 'world'
     }
@@ -153,7 +175,9 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('hello', true, 'body')]
     const link = new document.Link(url, 'post', 'application/json', fields)
-    const transport = new transports.HTTPTransport(null, testUtils.echo)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
     const params = {
       hello: 'world'
     }
@@ -168,7 +192,9 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/'
     const fields = [new document.Field('page', false, 'query')]
     const link = new document.Link(url, 'get', 'application/json', fields)
-    const transport = new transports.HTTPTransport(null, testUtils.echo)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
     const params = {}
 
     return transport.action(link, decoders, params)
@@ -181,7 +207,9 @@ describe('Test the HTTPTransport', function () {
     const url = 'http://www.example.com/{user}/'
     const fields = [new document.Field('user', true, 'path')]
     const link = new document.Link(url, 'get', 'application/json', fields)
-    const transport = new transports.HTTPTransport(null, testUtils.echo)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
     const params = {}
 
     const callTransport = () => transport.action(link, decoders, params)
@@ -191,7 +219,9 @@ describe('Test the HTTPTransport', function () {
   it('should check the action function of an HTTP transport (json) with unknown paramater', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
-    const transport = new transports.HTTPTransport(null, testUtils.echo)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
     const params = {
       hello: 'world'
     }

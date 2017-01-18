@@ -5,8 +5,10 @@ const testUtils = require('./__helpers__/utils')
 
 describe('Test the Client', function () {
   it('should get the content of page (text/html)', function () {
-    const fetch = testUtils.mockedFetch('Hello, world', 'text/html')
-    const transport = new transportsModule.HTTPTransport(null, fetch)
+    const mockedFetch = testUtils.mockedFetch('Hello, world', 'text/html')
+    const transport = new transportsModule.HTTPTransport({
+      fetch: mockedFetch
+    })
     const client = new coreapi.Client(null, [transport])
     const url = 'http://example.com'
 
@@ -21,8 +23,10 @@ describe('Test the Client', function () {
   })
 
   it('should get the content of page (application/json)', function () {
-    const fetch = testUtils.mockedFetch('{"text": "hello"}', 'application/json')
-    const transport = new transportsModule.HTTPTransport(null, fetch)
+    const mockedFetch = testUtils.mockedFetch('{"text": "hello"}', 'application/json')
+    const transport = new transportsModule.HTTPTransport({
+      fetch: mockedFetch
+    })
     const client = new coreapi.Client(null, [transport])
     const url = 'http://example.com'
 
@@ -37,8 +41,10 @@ describe('Test the Client', function () {
   })
 
   it('action should get the content of page (application/json)', function () {
-    const fetch = testUtils.mockedFetch('{"text": "hello"}', 'application/json')
-    const transport = new transportsModule.HTTPTransport(null, fetch)
+    const mockedFetch = testUtils.mockedFetch('{"text": "hello"}', 'application/json')
+    const transport = new transportsModule.HTTPTransport({
+      fetch: mockedFetch
+    })
     const client = new coreapi.Client(null, [transport])
     const document = new coreapi.Document('', '', '', {nested: {link: new coreapi.Link('http://example.com', 'get')}})
 
@@ -53,8 +59,10 @@ describe('Test the Client', function () {
   })
 
   it('action should raise an error for invalid link keys', function () {
-    const fetch = testUtils.mockedFetch('{"text": "hello"}', 'application/json')
-    const transport = new transportsModule.HTTPTransport(null, fetch)
+    const mockedFetch = testUtils.mockedFetch('{"text": "hello"}', 'application/json')
+    const transport = new transportsModule.HTTPTransport({
+      fetch: mockedFetch
+    })
     const client = new coreapi.Client(null, [transport])
     const document = new coreapi.Document('', '', '', {nested: {link: new coreapi.Link('http://example.com', 'get')}})
 
