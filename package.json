@@ -1,6 +1,6 @@
 {
   "name": "coreapi",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Javascript client library for Core API",
   "main": "lib/index.js",
   "scripts": {
@@ -29,7 +29,8 @@
       "describe",
       "expect",
       "it",
-      "xit"
+      "xit",
+      "jest"
     ]
   },
   "jest": {
