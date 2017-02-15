@@ -242,4 +242,36 @@ describe('Test the HTTPTransport', function () {
     const callTransport = () => transport.action(link, decoders, params)
     expect(callTransport).toThrowError(new errors.ParameterError('Unknown parameter: "hello"'))
   })
+
+  it('should call the requestCallback if any', function () {
+    const requestCallback = jest.fn()
+
+    const url = 'http://www.example.com/'
+    const link = new document.Link(url, 'get')
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo,
+      requestCallback: requestCallback
+    })
+
+    return transport.action(link, decoders)
+      .then(() => {
+        expect(requestCallback).toHaveBeenCalledTimes(1)
+      })
+  })
+
+  it('should call the responseCallback if any', function () {
+    const responseCallback = jest.fn()
+
+    const url = 'http://www.example.com/'
+    const link = new document.Link(url, 'get')
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo,
+      responseCallback: responseCallback
+    })
+
+    return transport.action(link, decoders)
+      .then(() => {
+        expect(responseCallback).toHaveBeenCalledTimes(1)
+      })
+  })
 })

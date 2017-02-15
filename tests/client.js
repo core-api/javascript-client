@@ -9,7 +9,7 @@ describe('Test the Client', function () {
     const transport = new transportsModule.HTTPTransport({
       fetch: mockedFetch
     })
-    const client = new coreapi.Client(null, [transport])
+    const client = new coreapi.Client({transports: [transport]})
     const url = 'http://example.com'
 
     client.get(url)
@@ -27,7 +27,7 @@ describe('Test the Client', function () {
     const transport = new transportsModule.HTTPTransport({
       fetch: mockedFetch
     })
-    const client = new coreapi.Client(null, [transport])
+    const client = new coreapi.Client({transports: [transport]})
     const url = 'http://example.com'
 
     client.get(url)
@@ -45,7 +45,7 @@ describe('Test the Client', function () {
     const transport = new transportsModule.HTTPTransport({
       fetch: mockedFetch
     })
-    const client = new coreapi.Client(null, [transport])
+    const client = new coreapi.Client({transports: [transport]})
     const document = new coreapi.Document('', '', '', {nested: {link: new coreapi.Link('http://example.com', 'get')}})
 
     client.action(document, ['nested', 'link'])
@@ -63,7 +63,7 @@ describe('Test the Client', function () {
     const transport = new transportsModule.HTTPTransport({
       fetch: mockedFetch
     })
-    const client = new coreapi.Client(null, [transport])
+    const client = new coreapi.Client({transports: [transport]})
     const document = new coreapi.Document('', '', '', {nested: {link: new coreapi.Link('http://example.com', 'get')}})
 
     client.action(document, ['nested', 'link'])
