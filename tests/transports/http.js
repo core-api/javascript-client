@@ -1,4 +1,5 @@
 const transports = require('../../lib/transports')
+const auth = require('../../lib/auth')
 const codecs = require('../../lib/codecs')
 const errors = require('../../lib/errors')
 const document = require('../../lib/document')
@@ -140,9 +141,13 @@ describe('Test the HTTPTransport', function () {
   it('CSRF should be included with POST requests.', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'post')
-    const csrf = {'X-CSRFToken': 'abc'}
+    const sessionAuth = new auth.SessionAuthentication({
+      csrfCookieName: 'csrftoken',
+      csrfHeaderName: 'X-CSRFToken',
+      cookieString: 'csrftoken=abc'
+    })
     const transport = new transports.HTTPTransport({
-      csrf: csrf,
+      auth: sessionAuth,
       fetch: testUtils.echo
     })
 
@@ -152,12 +157,35 @@ describe('Test the HTTPTransport', function () {
       })
   })
 
+  it('CSRF should not be included when no CSRF cookie exists.', function () {
+    const url = 'http://www.example.com/'
+    const link = new document.Link(url, 'post')
+    const sessionAuth = new auth.SessionAuthentication({
+      csrfCookieName: 'csrftoken',
+      csrfHeaderName: 'X-CSRFToken',
+      cookieString: ''
+    })
+    const transport = new transports.HTTPTransport({
+      auth: sessionAuth,
+      fetch: testUtils.echo
+    })
+
+    return transport.action(link, decoders)
+      .then((res) => {
+        expect(res).toEqual({url: 'http://www.example.com/', headers: {}, method: 'POST'})
+      })
+  })
+
   it('CSRF should not be included with GET requests.', function () {
     const url = 'http://www.example.com/'
     const link = new document.Link(url, 'get')
-    const csrf = {'X-CSRFToken': 'abc'}
+    const sessionAuth = new auth.SessionAuthentication({
+      csrfCookieName: 'csrftoken',
+      csrfHeaderName: 'X-CSRFToken',
+      cookieString: 'csrftoken=abc'
+    })
     const transport = new transports.HTTPTransport({
-      csrf: csrf,
+      auth: sessionAuth,
       fetch: testUtils.echo
     })
 
