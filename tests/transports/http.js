@@ -302,4 +302,16 @@ describe('Test the HTTPTransport', function () {
         expect(responseCallback).toHaveBeenCalledTimes(1)
       })
   })
+
+  it('should not throw on "204 no content"', function () {
+    const url = 'http://www.example.com/'
+    const link = new document.Link(url, 'delete')
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.mockedFetch(null, null, 204)
+    })
+    const params = {}
+
+    return transport.action(link, decoders, params)
+      .catch(error => expect(error).toBeNull())
+  })
 })
