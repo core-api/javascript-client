@@ -29,6 +29,12 @@ describe('Test the Utils/negotiateDecoder function', function () {
     expect(result instanceof coreapi.codecs.CoreJSONCodec).toBeTruthy()
   })
 
+  it('should return the default decoder if content type is null', function () {
+    const contentType = null
+    const result = utils.negotiateDecoder(decoders, contentType)
+    expect(result instanceof coreapi.codecs.CoreJSONCodec).toBeTruthy()
+  })
+
   it('should return the decoder for a content type (application/json)', function () {
     const contentType = 'application/json'
     const result = utils.negotiateDecoder(decoders, contentType)
