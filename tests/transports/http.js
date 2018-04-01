@@ -108,6 +108,25 @@ describe('Test the HTTPTransport', function () {
       })
   })
 
+  it('should check the action function of an HTTP transport (json) with query params and existing querystring in url', function () {
+    const url = 'http://www.example.com/?next=2'
+    const fields = [new document.Field('page', false, 'query')]
+    const link = new document.Link(url, 'get', 'application/json', fields)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
+    const params = {
+      page: 23
+    }
+
+    return transport.action(link, decoders, params)
+      .then((res) => {
+        expect(res.url).toMatch(/http:\/\/www.example.com\/\?(page=23&(?=next=2)|next=2&(?=page=23))/)
+        expect(res).toHaveProperty('headers', {})
+        expect(res).toHaveProperty('method', 'GET')
+      })
+  })
+
   it('should check the action function of an HTTP transport (json) with path params', function () {
     const url = 'http://www.example.com/{user}/'
     const fields = [new document.Field('user', true, 'path')]
@@ -241,6 +260,21 @@ describe('Test the HTTPTransport', function () {
     return transport.action(link, decoders, params)
       .then((res) => {
         expect(res).toEqual({url: 'http://www.example.com/', headers: {}, method: 'GET'})
+      })
+  })
+
+  it('should check the action function of an HTTP transport (json) with querystring in url and missing optional query params', function () {
+    const url = 'http://www.example.com/?next=1'
+    const fields = [new document.Field('page', false, 'query')]
+    const link = new document.Link(url, 'get', 'application/json', fields)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
+    const params = {}
+
+    return transport.action(link, decoders, params)
+      .then((res) => {
+        expect(res).toEqual({url: 'http://www.example.com/?next=1', headers: {}, method: 'GET'})
       })
   })
 
