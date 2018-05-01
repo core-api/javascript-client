@@ -127,6 +127,23 @@ describe('Test the HTTPTransport', function () {
       })
   })
 
+  it('should check the action function of an HTTP transport (json) with list-type query params', function () {
+    const url = 'http://www.example.com/'
+    const fields = [new document.Field('pages', false, 'query')]
+    const link = new document.Link(url, 'get', 'application/json', fields)
+    const transport = new transports.HTTPTransport({
+      fetch: testUtils.echo
+    })
+    const params = {
+      pages: [22, 23]
+    }
+
+    return transport.action(link, decoders, params)
+      .then((res) => {
+        expect(res).toEqual({url: 'http://www.example.com/?pages=22&pages=23', headers: {}, method: 'GET'})
+      })
+  })
+
   it('should check the action function of an HTTP transport (json) with path params', function () {
     const url = 'http://www.example.com/{user}/'
     const fields = [new document.Field('user', true, 'path')]
