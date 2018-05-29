@@ -4,8 +4,8 @@
   "description": "Javascript client library for Core API",
   "main": "lib/index.js",
   "scripts": {
-    "build": "mkdir -p dist && browserify --standalone coreapi -d -t babelify lib/index.js -o dist/coreapi.js",
-    "watch": "watchify --standalone coreapi -t babelify lib/index.js -o dist/coreapi.js -v",
+    "build": "mkdir -p dist && babel src --out-dir lib &&  browserify --standalone coreapi -d -t babelify lib/index.js -o dist/coreapi.js",
+    "watch": "watchify --standalone coreapi -t babelify src/index.js -o dist/coreapi.js -v",
     "prepublish": "npm run build",
     "jest": "jest",
     "test": "standard && jest --coverage"
@@ -46,8 +46,11 @@
     "url-template": "^2.0.8"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-jest": "^18.0.0",
     "babel-preset-es2015": "^6.18.0",
+    "babel-preset-latest": "^6.24.1",
     "babelify": "^7.3.0",
     "browserify": "^13.3.0",
     "jest": "^18.1.0",
