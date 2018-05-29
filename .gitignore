@@ -9,7 +9,7 @@ coverage
 
 # Dependency directories
 /node_modules/
-
+/lib
 # Build directory
 /dist/
 
