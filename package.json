@@ -41,7 +41,7 @@
     "testRegex": "/tests/.*\\.(ts|tsx|js)$"
   },
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1",
+    "cross-fetch": "^2.2.2",
     "url-parse": "^1.1.7",
     "url-template": "^2.0.8"
   },
