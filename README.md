@@ -68,3 +68,8 @@ To run the tests (linting & unit tests):
 [npm-url]: http://badge.fury.io/js/coreapi
 [codecov-image]: https://codecov.io/gh/core-api/javascript-client/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/core-api/javascript-client
+
+
+# Fixed
+
+Link's encoding is no longer fixed to `application/json`, it's from the schema.
